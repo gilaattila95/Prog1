@@ -1,1 +1,40 @@
+#include "std_lib_facilities.h"
+
+int main()
+{
+	//1. Cseréld fel két változó értékét segédváltozó nélkül, összeadással.
+	
+	
+
+	int a = 10;
+	int b = 5;
+	
+	cout<<"Összeadás.\nElőtte : \na: "<< a << "\nb: "<< b << endl;
+
+	a = a + b;
+	b = a - b;
+	a = a - b;
+
+	cout <<"Utána : \na: "<< a << "\nb: "<< b << endl;
+
+	//2. Cseréld fel két változó értékét segédváltozó nélkül, szorzással.
+
+	
+	cout<<"\nSzorzás.\nElőtte : \na: "<< a << "\nb: "<< b << endl;
+
+	a = a * b;
+	b = a / b;
+	a = a / b;
+
+	cout <<"Utána : \na: "<< a << "\nb: "<< b << endl;
+
+	//3. Cseréld fel két változó értékét segédváltozó nélkül, exorral.
+
+	
+	cout<<"\nXOR.\na : "<<a<<"\t1010\nb : "<<b<<"\t0011\n";
+	a = a^b;
+	b = b^a;
+	a--;
+	cout<<"Muvelet utan\na : "<<a<<"\t(0011)\nb : "<<b<<"\t1010\n";
+} 
 
