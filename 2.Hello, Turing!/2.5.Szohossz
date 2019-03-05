@@ -1,3 +1,4 @@
+//Bátfai Tanár úr forrása:
 #include <time.h>
 #include <stdio.h>
 
@@ -35,5 +36,22 @@ main (void)
 
   printf ("failed\n");
   return -1;
+}
+
+// Saját forrás
+#include <stdio.h>
+
+int main(){
+
+	int db = 0;
+	int szam = 1;
+
+
+	while( szam != 0 ){
+		szam<<=1;
+		++db;
+	}
+
+	printf(db, "\n");
 }
 
