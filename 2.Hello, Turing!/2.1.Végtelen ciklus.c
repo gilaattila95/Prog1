@@ -9,6 +9,7 @@ int main(){
 }
 //Egy magot nullan!
 
+#include <stdio.h>
 int
 main ()
 {
