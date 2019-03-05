@@ -41,17 +41,19 @@ main (void)
 // Saját forrás
 #include <stdio.h>
 
-int main(){
-
-	int db = 0;
-	int szam = 1;
-
-
-	while( szam != 0 ){
-		szam<<=1;
-		++db;
-	}
-
-	printf(db, "\n");
+int main()
+{
+    int db = 0, word = 1;
+    
+    do
+    {
+        
+        db++;
+        
+    } while(word <<= 1);
+    
+    printf("A szó ezen a gépen %d bites\n", db);
+    
+    return 0;
 }
 
