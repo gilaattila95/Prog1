@@ -1,1 +1,33 @@
+#include <stdio.h>
+#include <signal.h>
+#include <unistd.h>
+
+void jelkezelo(int a)
+{
+	printf("Helló!\n");
+}
+
+int main()
+{
+	/*for(;;)
+	{
+	usleep(60000);
+		if(signal(SIGINT, jelkezelo) == SIG_IGN)
+		{
+			signal(SIGINT,SIG_IGN);
+			break;
+		}
+	}*/
+    if(signal(SIGINT,SIG_IGN) != SIG_IGN)
+		{
+			signal(SIGINT, jelkezelo);
+            
+		}
+	for(;;)
+	{
+
+		usleep(60000);
+		
+	}
+}
 
