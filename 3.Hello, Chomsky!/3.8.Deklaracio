@@ -1,27 +1,15 @@
 #include <stdio.h>
-
-int main(){
-
-int a;
-int *b = &a;
-int &r = a;
-int c[5];
-int (&tr) [5] = c
-int *d[5];
-int *h ();
-int *(*l) ();
-int (*v (int c)) int a, int b);
-int (*(*z) (int)) (int, int);
-
-/* - egész                      
-   - egészre mutató mutató                        
-   - egész referenciája                        
-   - egészek tömbje
-   - egészek tömbjének referenciája (nem az első elemé)                        
-   - egészre mutató mutatók tömbje                   
-   - egészre mutató mutatót visszaadó függvény                        
-   - egészre mutató mutatót visszaadó függvényre mutató mutató                        
-   - egészet visszaadó és két egészet kapó függvényre mutató mutatót visszaadó, egészet kapó függvény                 
-   - függvénymutató egy egészet visszaadó és két egészet kapó függvényre mutató mutatót visszaadó, egészet kapó függvényre                
-*/
+int main()
+{
+	int a = 5;	//   - egész  
+	int *b = &a;	//   - egészre mutató mutató
+	int &r = a;	//   - egész referenciája
+	int c[5];	//   - egészek tömbje
+	int (&tr)[5] = c;	//   - egészek tömbjének referenciája (nem az első elemé)
+	int *d[5];	//   - egészre mutató mutatók tömbje      
+	int *h();	//   - egészre mutató mutatót visszaadó függvény
+	int *(*l)();	//   - egészre mutató mutatót visszaadó függvényre mutató mutató 
+	int (*v (int c)) (int a, int b);	//   - egészet visszaadó és két egészet kapó függvényre mutató mutatót visszaadó, egészet kapó függvény
+	int (*(*z) (int)) (int, int);	//   - függvénymutató egy egészet visszaadó és két egészet kapó függvényre mutató mutatót visszaadó, egészet kapó függvényre 
+	return 0;
 }
