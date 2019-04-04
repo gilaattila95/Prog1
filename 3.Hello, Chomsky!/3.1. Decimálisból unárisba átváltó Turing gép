@@ -1,0 +1,25 @@
+#include <iostream>
+
+                    using namespace std;
+
+                    void atvalt(int n){
+                        for(int i = 0; i < n; i++)
+                        {
+                            cout << "1";
+                        }
+                        cout << endl;
+                    }
+
+                    int main(){
+                        int n;
+    
+                        cout << "Number:\n";
+
+                        cin >> n;
+                        cin.clear();
+                        cin.ignore(10000,'\n');
+    
+                        atvalt(n);
+    
+                        return 0;   
+                    }
