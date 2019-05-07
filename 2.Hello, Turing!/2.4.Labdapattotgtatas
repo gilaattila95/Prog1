@@ -1,102 +1,35 @@
-If-ekkel:
-
-#include <stdio.h>
-#include <curses.h>
+#include <ncurses.h>
 #include <unistd.h>
-
-int main ( void )
-	{
-   		 WINDOW *ablak; 
-  		  ablak = initscr ();
-
- 		   int x = 0;       
- 		   int y = 0;
- 		   int xnov = 1;   
- 		   int ynov = 1;
-
-  		   int mx;         
-  		   int my;         
-
-   	 for ( ;; ) {
-
-        	getmaxyx ( ablak, my , mx ); 
-
-        	mvprintw ( y, x, "O" );     
-
-        	refresh ();                 
-        	usleep ( 70000 );           
-	    		clear();                          
-      			  x = x + xnov;
-      			  y = y + ynov;
-		
-      		  if ( x>=mx-1 ) { 
-          		  xnov = xnov * -1;
-        			 }
-       		  if ( x<=0 ) { 
-            		  xnov = xnov * -1;
-        		      }
-        	  if ( y<=0 ) { 
-            		  ynov = ynov * -1;
-       			      }
-        	  if ( y>=my-1 ) { 
-            		 ynov = ynov * -1;
-       		   		 }
-
-    		    }
-
-    	  return 0;
-	}
-
-
-If nélkül:
-
-#include <stdio.h>
 #include <stdlib.h>
-#include <curses.h>
-#include <unistd.h>
- int main (void)
-	{
-	 int xj = 0, xk = 0, yj = 0, yk = 0;
-	 int mx = 80 * 2, my = 24 * 2;
-	 WINDOW *ablak;
-	 ablak = initscr ();
-	 noecho ();
-	 cbreak ();
-	 yk = (yk + 1) % my;	
-	 clear ()
-	 mvprintw (0, 0,
-	 "--------------------------------------------------------------------------------");
-	 mvprintw (24, 0,
-	 "--------------------------------------------------------------------------------");
-	 mvprintw (abs ((yj + (my - yk)) / 2),
-	 	   abs ((xj + (mx - xk)) / 2), "O");
-	 
-	 refresh ();
-	 usleep (1500);
-				 }
-	 return 0;
-				 }	    
-	 nodelay (ablak, true);
-				
-	 	for (;;)
-		 {
-		     xj = (xj - 1) % mx;
-		     xk = (xk + 1) % mx;
-		     yj = (yj - 1) % my;
-		     yk = (yk + 1) % my;
-		     
-		     clear ();
 
-		     mvprintw (0, 0,
-		     	"--------------------------------------------------------------------------------");
-		     mvprintw (24, 0,
-		     	"--------------------------------------------------------------------------------");
-		     mvprintw (abs ((yj + (my - yk)) / 2),						               
-		     	       abs ((xj + (mx - xk)) / 2), "O");
-	     
-	     	refresh ();
-	     	usleep (1500);
+int main()
+{
+	int xj = 0, xk = 0, yj = 0, yk = 0, mx = 0, my = 0, h = 0, w =
+	    0;
 
-		}
-	return 0;
+	initscr();
+	cbreak();
+	noecho();
+	nodelay(stdscr, TRUE);
+	getmaxyx(stdscr, h, w);
+	mx = w * 2;
+	my = h * 2;
+
+	while (true) {
+		xj = (xj - 1) % mx;
+		xk = (xk + 1) % mx;
+
+		yj = (yj - 1) % my;
+		yk = (yk + 1) % my;
+
+		clear();
+
+		mvprintw(abs((yj + (my - yk)) / 2),
+			 abs((xj + (mx - xk)) / 2), "o");
+
+		refresh();
+		usleep(30000);
 	}
+
+	return 0;
+}
