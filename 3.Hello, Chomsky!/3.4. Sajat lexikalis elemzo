@@ -11,6 +11,11 @@ int
 main ()
 {
  yylex ();
- printf("The number of real numbers is %d\n", realnumbers);
+ if (realnumbers < 2){
+        printf("The number of real number is %d\n", realnumbers);
+                }
+    else {
+        printf("The number of real numbers are %d\n", realnumbers);        
+            }
  return 0;
 }
