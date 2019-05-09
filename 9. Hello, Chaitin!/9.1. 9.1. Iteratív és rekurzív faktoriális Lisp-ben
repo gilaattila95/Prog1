@@ -1,1 +1,11 @@
+> (define (fact n) (do (( i 1 (+ 1 i)) (num 1 (* i num))) ((> i n) num)))
+fact
+> (fakt 5)
+120
 
+
+
+> (define (fakt n) (if (< n 1) 1 (* n(fakt(- n 1)))))
+fakt
+> (fakt 5)
+120
