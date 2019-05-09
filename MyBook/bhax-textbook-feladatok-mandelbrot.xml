@@ -1,0 +1,272 @@
+<chapter xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" version="5.0" xml:lang="hu">
+    <info>
+        <title>Helló, Mandelbrot!</title>
+        <keywordset>
+            <keyword/>
+        </keywordset>
+    </info>
+    <section>
+        <title>A Mandelbrot halmaz</title>
+        <para>
+            Írj olyan C programot, amely kiszámolja a Mandelbrot halmazt!     
+        </para>
+        <para>
+            Megoldás videó: <link xlink:href="https://youtu.be/gvaqijHlRUs">https://youtu.be/gvaqijHlRUs</link>
+        </para>
+        <para>
+            Megoldás forrás: <link xlink:href="">5.Helló, Mandelbrot!/5.1.A Mandelbrot halmaz</link>          
+        </para>
+        <para>Tutorált: Nagy László Mihály</para>
+        <para>
+            A Mandelbrot Halmaz egy olyan halmaz, amely a komplex számsíkon ábrázolva egy nevezetes fraktált alkot.
+            Nevét Benoit Mandelbrotról kapta, aki 1980-ban fogalmazta meg a képletét, mely a következő:
+        </para>
+        <para>
+        <emphasis role="strong">x<subscript>1</subscript>:=c, x<subscript>n+1</subscript>:=(x<subscript>n</subscript>)<superscript>2</superscript>+c</emphasis>
+        </para>    
+      
+        <para>
+            Íme egy szép felnagyított kép a Mandelbrot halmazról:
+        </para>
+        <para>
+            <figure>
+                <title>Mandelbrot halmaz</title>
+                    <mediaobject>
+                        <imageobject>
+                            <imagedata fileref="../img/mandelbrot.jpg" format="JPG" scale="200"/>
+                        </imageobject>
+                    </mediaobject>
+            </figure>
+        </para>
+        <para>
+            Ehhez kell írnunk egy C++ programot, ami elkészíti ezt nekünk.
+        </para>
+        <para>
+            A programban egy új headerfájlt importálunk, a png++ nevű headert.
+            Erre azért van szükség, hogy legenárljuk a programot.
+            Telepítése <command>sudo apt-get install libpng++-dev</command> parancs sorral.
+        </para>
+        <para>
+
+            A program main() fügvényének adunk argumentumot, mellye a program kimeneti fájlát, adjuk meg amibe a Mandelbrot halmaz ábrája kerül.
+            Ismét adunk a <function>main()</function> függvényünknek argumentumot, amellyel azt adhatjuk meg a program futtatásakor,
+            hogy mi legyen a kimeneti fájl, amibe elkészíti majd a program a Mandelbrot halmazról készített ábránkat.
+
+            Megadjuk a változókat, amikben tároljuk a függvény értékkészletét és értelmezési tartományát.
+            <programlisting language="c++"><![CDATA[
+                png::image <png::rgb_pixel> kep (szelesseg, magassag);]]>
+            </programlisting>
+            Az alábbi rész elkészíti az először üres png fájlt(itt kell a korábban telepített header fájl).
+            
+            A dx, dy változók tartalmazzák az értékeket, amikkel végig megyünk a koordináta rendszeren. 
+            A reC, imC, reZ, imZ, ujreZ, ujimZ változók tartalmazzák a c és z komplex számaink valós és képzetes értékeit.
+            A komplex számokat egy tengelyen nem lehet ábrázolni, csak két tengelyen, mégpedig úgy, hogy az x tengely a valós érték, az y pedig a képzetes érték.
+            
+            A for ciklus végig megy a tartományokon, közben a while ciklus végzi a számításokat.
+            Addig számol, ameddig z négyzete nem nagyobb négynél, vagy az iterációs határnál,
+            ha sikerül elérni a határt a akkor konvergens és eleme lesz c a Mandelbrot halmaznak.
+            A write függvény pedig feltölti az üres png fájlt, a kapott ábrával.
+            
+        </para>
+        
+        <para>
+            A programot a <command>g++ mand.cpp -o mand -lpng</command> parancssorral lehet lefordítani.
+            Futtatásnál, arra kell figyelni, hogy a kimeneti fájl *.png formátumú legyen.
+        </para>
+        <para>
+          A program által kiadott kép:
+        </para>
+        <para>
+            <figure>
+                <title>Mandelbrot halmaz</title>
+                    <mediaobject>
+                        <imageobject>
+                            <imagedata fileref="../img/mandel.png" format="PNG" scale="50"/>
+                        </imageobject>
+                    </mediaobject>
+            </figure>
+        </para>
+    </section>  
+
+      <section>
+        <title>A Mandelbrot halmaz a <filename>std::complex</filename> osztállyal</title>
+        <para>
+                
+        </para>
+        <para>
+            Megoldás videó:
+        </para>
+        <para>
+            Megoldás forrása:  <link xlink:href="https://github.com/gilaattila95/Prog1/blob/master/5.Hello%20Mandelbrot!/5.2.%20A%20Mandelbrot%20halmaz%20a%20std::complex%20osztallyal">
+                                5.Hello Mandelbrot!/5.2. A Mandelbrot halmaz a std::complex osztallyal
+                               </link>
+              
+        </para>
+        <para>
+            Az előző feladaton változtatunk annyit, hogy ne két változóban tároljuk a komplex számokat, a complex könyvtár segítségével.
+        </para>
+        <para>
+            Annyi a változás, hogy mostmár meg kell adni futattáskor a bemeneti értéket és az iterációs határt.
+            A for ciklusban van az eltérés, ahol a complex könyvtár segítségünkre siet, a complex típus double értékeket tartalmaz,
+            valamint a valós és képzetes értékből áll.
+            Így adjuk meg a c, z_n változók értékeit, ha elérjük az iterációs határt, akkor konvergens, és  c eleme a Mandelbrot halmaznak.
+            A while ciklusban felbukkan az abs (abszolútérték) függvény, ami a paraméterek abszolútértékét adja vissza.
+            Ezzel a módszerrel, egyszerűbben bevihető a Mandelbrot képlet.
+            Fordítása mint az előző feladatban, futtatása viszont:
+        </para>
+        <programlisting>./3.1.2 mandel.png 1920 1080 2040 -0.01947381057309366392260585598705802112818 -0.0194738105725413418456426484226540196687 0.7985057569338268601555341774655971676111 0.798505756934379196110285192844457924366</programlisting>
+
+        <para>
+            <figure>
+                <title>Mandelbrot halmaz 2</title>
+                    <mediaobject>
+                        <imageobject>
+                            <imagedata fileref="../img/mandel2.png" format="PNG" scale="20"/>
+                        </imageobject>
+                    </mediaobject>
+            </figure>
+            </para>
+
+    </section>      
+                
+    <section>
+        <title>Biomorfok</title>
+        <para>
+        </para>
+        <para>
+            Megoldás videó: <link xlink:href="https://youtu.be/IJMbgRzY76E">https://youtu.be/IJMbgRzY76E</link>
+        </para>
+        <para>
+            Megoldás forrása: <link xlink:href="https://github.com/gilaattila95/Prog1/blob/master/5.Hello%20Mandelbrot!/5.3.%20Biomorfok">5.Hello Mandelbrot!/5.3. Biomorfok</link>
+        </para>
+        <para>
+            A biomorfokra (a Julia halmazokat rajzoló bug-os programjával) 
+            rátaláló Clifford Pickover azt hitte természeti törvényre 
+            bukkant: <link xlink:href="https://www.emis.de/journals/TJNSA/includes/files/articles/Vol9_Iss5_2305--2315_Biomorphs_via_modified_iterations.pdf">https://www.emis.de/journals/TJNSA/includes/files/articles/Vol9_Iss5_2305--2315_Biomorphs_via_modified_iterations.pdf</link> (lásd a 2307. oldal aljától).
+        </para> 
+        <para>   
+            A biomorfok Clifford Pickover nevéhez fűződik. Egy programon dolgozott, ahol a Mandelndelbrot halmazban megjelenő Júlia halmazok létehozásával volt kapcsolatban.
+            A program egyik futattásánal létrejött váratlan alakzatok voltak a biomorfok.   
+        </para> 
+
+        <para>
+            A program nagyban hasonlít a Mandelbrot-os feladathoz, 
+            viszont mint a Mandelbrot második feladatában itt is a futtatásnál várja a bemeneti értéket és az iterációs határt.
+            A forciklusba beleteszünk egy kis változtatást, amit Pickover-től vettünk.
+            <programlisting language="c++"><![CDATA[
+                if(std::real ( z_n ) > R || std::imag ( z_n ) > R)]]>
+            </programlisting>
+            Ettől az if függvénytől lett, hogy Pickover véletlenül megalkotta  a kódot, ami a bioformokat generálja.
+            </para>
+          <para>
+            A futattása a következő képpen történ nálam:<command>./3.1.3 bmorf.png 800 800 10 -2 2 -2 2 .285 0 10</command>
+            </para>
+            <para>A kapott kép itt is szerepel:</para>
+        <para>
+            <figure>
+                <title>Biomorfok</title>
+                    <mediaobject>
+                        <imageobject>
+                            <imagedata fileref="../img/bmorf.png" format="PNG" scale="35"/>
+                        </imageobject>
+                    </mediaobject>
+            </figure>
+            </para>
+                                                          
+    </section>                     
+
+    <section>
+        <title>A Mandelbrot halmaz CUDA megvalósítása</title>
+        <para>
+        </para>
+        <para>
+            Megoldás videó: <link xlink:href="https://youtu.be/gvaqijHlRUs">https://youtu.be/gvaqijHlRUs</link>
+        </para>
+        <para>
+            Megoldás forrása: <link xlink:href="https://github.com/gilaattila95/Prog1/blob/master/5.Hello%20Mandelbrot!/5.4.A%20Mandelbrot%20halmaz%20CUDA%20megval%C3%B3s%C3%ADt%C3%A1sa">
+                                 5.Hello Mandelbrot!/5.4.A Mandelbrot halmaz CUDA megvalósítása 
+                              </link>          
+        </para>
+        <para>
+            Most a Mandelbrot halmazt CUDA módszerrel fogjuk megvalósítani, mely Nvidia fejlesztés(értelemszerűen szükségünk lesz egy Nvidia kártyára).
+            Ezzel jelentősen csökken az elkészítési ideje a képnek.
+            Elsősorban telepítenünk kell a CUDA toolkit-et, melyet az alábbi parancssorral lehet:
+            <command>sudo apt-get install nvidia-cuda-toolkit</command>    
+        </para>
+        <para>
+            
+            A a konstansokat megadjuk előre, a mandel függvény elkészíti a Mandelbrot halmaz.
+            A device jelzi, hogy a CUDA segít számolni. Ha a <command>__device__</command>-t beírjuk bármi elé, akkor az Nvidia kártyánkat fogja fordítani.
+            A double értékeket, float értékekre cseréltük, mivel az Nvidia alapból ilyenre alakít.
+           
+            A következő függvényben kapja meg a <function>mandel</function> függvényünk folyamatosan az éppen aktuális index értéket, 
+            melynek segítségével számoljuk a <varname>z</varname> értékeket. A <function>threadIdx.x/y</function> jelzi azt, 
+            hogy melyik GPU szálon fut éppen az <varname>x,y</varname> értékek számolása. A <varname>j,k</varname> változókban 
+            eltároljuk a pontos index értékeket.
+            
+            A <function>cudamandel</function> függvényünkkel generálunk egy pointert, aminek a memóriában lefoglalásra kerül egy megadott tömbbel  
+            (600x600) megegyező méretű adatterület, amire mutatni fog. Később ezt a pointert fogja megkapni a feljebb látott <function>mandelkernel</function> 
+            függvény argumentumként. A <function>mandelkernel</function> függvény meghívásánál a <varname>grid</varname> adja meg, hogy hány blokkot hozzon létre, 
+            és a <varname>tgrid</varname> adja meg a blokkokhoz tartozó szálak számát. Ezek most 3600 és 100. Majd végül egy másolás következik a megadott tömbbe, 
+            és szabaddá tesszük a lefoglalt tárhelyet a <function>cudaFree</function> paranccsal.
+            
+            A main függvény teljesen ugyan az, mint az előző feladatban, csak most lemérjük az időt, míg elkészíti, hogy összehasonlíthassuk.
+            
+        </para>
+        <para>
+        A fordítása így néz ki: <command>nvcc cuda.cu -lpng16 -o cuda</command>.
+        A futtatása pedig: <command>./cuda cuda.png</command>
+        </para>
+    </section>                     
+
+    <section>
+        <title>Mandelbrot nagyító és utazó C++ nyelven</title>
+        <para>
+            Építs GUI-t a Mandelbrot algoritmusra, lehessen egérrel nagyítani egy területet, illetve egy pontot
+            egérrel kiválasztva vizualizálja onnan a komplex iteréció bejárta z<subscript>n</subscript> komplex számokat!
+        </para>
+        <para>
+            Megoldás videó: 
+        </para>
+        <para>
+            Megoldás forrása:  <link xlink:href="https://github.com/gilaattila95/Prog1/blob/master/5.Hello%20Mandelbrot!/5.5.%20Mandelbrot%20nagyito%20es%20utaz%C3%B3%20C++%20nyelven">
+                                 5.Hello Mandelbrot!/5.5.Mandelbrot nagyító és utazó C++ nyelven
+                              </link>
+        </para>
+        <para>
+            Az elkészített képen a program segítségével nagyítani tudunk, kisebb romlás mellett.
+            Fordítás: <command>g++ mbrotnagy.cpp -lpng16 -o mabrotnagy</command> 
+        </para>
+        <para>
+            Futtatás: <command>./mbrotnagy mandelnagyitocpp.png 1920 1080 1020 0.41276554182095892553405747094075195491310.4127655418245818053080142817634623497725 0.2135387051768746491386963270997512154281 0.2135387051804975289126531379224616102874</command>
+        </para>
+        <para>
+            <figure>
+                <title>Biomorfok</title>
+                    <mediaobject>
+                        <imageobject>
+                            <imagedata fileref="../img/mandelnagyito.png" format="PNG" scale="15"/>
+                        </imageobject>
+                    </mediaobject>
+            </figure>
+            </para>
+
+    </section>                      
+                                                                                                                                                                            
+    <section>
+        <title>Mandelbrot nagyító és utazó Java nyelven</title>
+        <para>
+        </para>
+        <para>
+            Megoldás videó: <link xlink:href="https://youtu.be/Ui3B6IJnssY">https://youtu.be/Ui3B6IJnssY</link>, 4:27-től.
+            Illetve <link xlink:href="https://bhaxor.blog.hu/2018/09/02/ismerkedes_a_mandelbrot_halmazzal">https://bhaxor.blog.hu/2018/09/02/ismerkedes_a_mandelbrot_halmazzal</link>.
+        </para>
+        <para>
+            Megoldás forrása: <link xlink:href="https://www.tankonyvtar.hu/hu/tartalom/tkt/javat-tanitok-javat/apbs02.html#id570518">https://www.tankonyvtar.hu/hu/tartalom/tkt/javat-tanitok-javat/apbs02.html#id570518</link>
+        </para>
+        <para>
+            Első előadás passz.
+        </para>
+    </section>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+</chapter>                

@@ -1,0 +1,346 @@
+<chapter xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" version="5.0" xml:lang="hu">
+    <info>
+        <title>Helló, Turing!</title>
+        <keywordset>
+            <keyword/>
+        </keywordset>
+    </info>
+    <section>
+        <title>Végtelen ciklus</title>
+        <para>
+            Írj olyan C végtelen ciklusokat, amelyek 0 illetve 100 százalékban dolgoztatnak egy magot és egy olyat, amely  
+            100 százalékban minden magot!
+        </para>
+        <para>
+            Megoldás videó:
+        </para>
+        <para>
+            Megoldás forrása: <link xlink:href="https://github.com/gilaattila95/Prog1/blob/master/2.Hello%2C%20Turing!/2.1.V%C3%A9gtelen%20ciklus">Hello Turing!/2.1. Végtelen ciklus</link>               
+        </para>
+        <para>
+            Mivel eddig nem nagyon foglalkoztattot a CPU kihasználtsága ilyen módon, érdekesnek találtam a feladatot, főleg a tény miatt, hogy egy egyszerű for ciklus képes lefoglalni 100%-ban nem csak egy de akár minden magot!                    
+            A forrás, linkben megtalálható, itt külön nem részletezem.A top parancs eredményét viszont ide raktam ki: </para>
+            <screen>
+top - :09:06 up  3:35,  1 user,  load average: 5,68, 2,91, 1,38
+Tasks: 329 total,   2 running, 256 sleeping,   0 stopped,   1 zombie
+%Cpu0 :100,0 us, 0,0 sy, 0,0 ni, 0,0 id, 0,0 wa, 0,0 hi, 0,0 si, 0,0 st
+%Cpu1 : 99,7 us, 0,3 sy, 0,0 ni, 0,0 id, 0,0 wa, 0,0 hi, 0,0 si, 0,0 st
+%Cpu2 :100,0 us, 0,0 sy, 0,0 ni, 0,0 id, 0,0 wa, 0,0 hi, 0,0 si, 0,0 st
+%Cpu3 : 99,7 us, 0,3 sy, 0,0 ni, 0,0 id, 0,0 wa, 0,0 hi, 0,0 si, 0,0 st
+KiB Mem :5106188  total,185464   free, 3318300 used, 2418036 buff/cache
+KiB Swap:2097148  total,2097148  free,       0 used. 13751608 avail Mem 
+PID USER      PR  NI    VIRT    RES    SHR S  %CPU  %MEM     TIME+ COMMAND     
+8863 gila      20   0    4376    796    732 R   99,9  0,0   5:14.23 vegcik
+
+            </screen>
+       
+    </section>         
+        
+    <section>
+        <title>Lefagyott, nem fagyott, akkor most mi van?</title>
+        <para>
+            Mutasd meg, hogy nem lehet olyan programot írni, amely bármely más programról eldönti, hogy le fog-e fagyni vagy sem!
+        </para>
+        <para>
+            Megoldás videó:
+        </para>
+        <para>
+            Megoldás forrása:  tegyük fel, hogy akkora haxorok vagyunk, hogy meg tudjuk írni a <function>Lefagy</function>
+            függvényt, amely tetszőleges programról el tudja dönteni, hogy van-e benne vlgtelen ciklus:              
+        </para>
+        <programlisting language="c"><![CDATA[Program T100
+{
+
+	boolean Lefagy(Program P)
+	{
+		 if(P-ben van végtelen ciklus)
+			return true;
+		 else
+			return false; 
+	}
+
+	main(Input Q)
+	{
+		Lefagy(Q)
+	}
+}]]></programlisting>            
+        <para>
+            A program futtatása, például akár az előző <filename>v.c</filename> ilyen pszeudókódjára:
+            <screen><![CDATA[T100(t.c.pseudo)
+true]]></screen>            
+            akár önmagára
+            <screen><![CDATA[T100(T100)
+false]]></screen>  
+            ezt a kimenetet adja.          
+        </para>
+        <para>
+            A T100-as programot felhasználva készítsük most el az alábbi T1000-set, amelyben a
+            Lefagy-ra épőlő Lefagy2 már nem tartalmaz feltételezett, csak csak konkrét kódot:
+        </para>
+        <programlisting language="c"><![CDATA[Program T1000
+{
+
+	boolean Lefagy(Program P)
+	{
+		 if(P-ben van végtelen ciklus)
+			return true;
+		 else
+			return false; 
+	}
+
+	boolean Lefagy2(Program P)
+	{
+		 if(Lefagy(P))
+			return true;
+		 else
+			for(;;); 
+	}
+
+	main(Input Q)
+	{
+		Lefagy2(Q)
+	}
+
+}]]></programlisting>            
+        <programlisting><![CDATA[]]></programlisting>            
+        <para>
+            Mit for kiírni erre a <computeroutput>T1000(T1000)</computeroutput> futtatásra?
+                                
+            <itemizedlist>
+                <listitem>
+                    <para>Ha T1000 lefagyó, akkor nem fog lefagyni, kiírja, hogy true</para>                        
+                </listitem>
+                <listitem>
+                    <para>Ha T1000 nem fagyó, akkor pedig le fog fagyni...</para>                        
+                </listitem>
+            </itemizedlist>
+            akkor most hogy fog működni? Sehogy, mert ilyen <function>Lefagy</function>
+            függvényt, azaz a T100 program nem is létezik.                
+        </para>
+        <para>
+            A Turong gépeknél gyakori előfordulása van az ellentmondásos megállásnak.
+            A turing gép alap felépítése: <programlisting>
+                                              olvasófej
+                                              külső tár
+                                              CPU
+            </programlisting>
+            Az olvasófej feldolgozza az adatokat, ameddig vége nincs a bemenetnek, vagy valami miatt meg nem áll.
+            A T1000-es program ellentmondáshoz vezet, mikor önön magát kell beolvasnia, 
+            mivel ha a programot lefagyónak adjuk meg, akkor nem lesz az, 
+            és ha a nem lefagyónak adjuk meg, akkor pedig az lesz.
+          
+        </para>
+    </section>        
+                
+    <section>
+        <title>Változók értékének felcserélése</title>
+        <para>
+            Írj olyan C programot, amely felcseréli két változó értékét, bármiféle logikai utasítás vagy kifejezés
+            nasználata nélkül!
+        </para>
+        <para>
+            Megoldás videó: <link xlink:href="https://bhaxor.blog.hu/2018/08/28/10_begin_goto_20_avagy_elindulunk">https://bhaxor.blog.hu/2018/08/28/10_begin_goto_20_avagy_elindulunk</link>
+        </para>
+        <para>
+            Megoldás forrása: <link xlink:href="https://github.com/gilaattila95/Prog1/blob/master/2.Hello%2C%20Turing!/2.3.Valtozo%20felcsereles">Hello Turing!/2.3.VAltozo felcserelese</link>
+        </para>
+                <para>
+            Érdekes feladat volt, igazán egyszerűnek tűnő, viszont annál hasznosabb tud lenni, mikor az valátozóértékeket nem átirással akarod megváltoztatni. A forrásban található 3 féle megközelítés. 
+            Mind a három ugyan azt a végeredményt adja, de más úton. Kinek melyik a szimpatikus.
+            
+            Nem részletezem mind a 3 megoldást, csak a személyes kedvencemet:
+        </para>
+        <programlisting language="c">
+       <![CDATA[
+#include <math.h>
+#include <stdio.h>
+int a = 10;
+int b = 5;
+
+printf("Before:" a, "  " b);
+
+a = a + b;
+b = a - b;
+a = a - b;
+       
+printf("After:" a, "  " b);
+]]>
+       </programlisting>
+       <para>Mint azt ti is látjátok ez egy egyszerű matematikai feladat. Van két változónk, jelen esetben a=10 és b=5. Na most ha először a-nak új értéket adunk, még pedig úgy, hogy 10-hez(a) hozzá adjuk a 5-öt(b),
+       akkor az 15 lesz. Tehát most a értéke 15 viszont b maradt 5. Aztán most a b-nek adjunk új értéket mégpedig úgy, hogy a 15-ből(a) kivonjuk az 5-öt(b), akkor 10-et kapunk. Tehát a b új értéke 10, az a értéke pedig maradt 15.
+       Utolsó lépésként a-nak adjunk mégegyszer új értéket úgy, hogy vonjuk ki a 15-ből(a) 10-et(b). Így végeredményűl megkapjuk azt, hogy a = 5 és b = 10, mely ha megnézitek a felcserélt érték.
+       </para>
+    </section>                     
+
+    <section>
+        <title>Labdapattogás</title>
+        <para>
+            Először if-ekkel, majd bármiféle logikai utasítás vagy kifejezés
+            nasználata nélkül írj egy olyan programot, ami egy labdát pattogtat a karakteres konzolon! (Hogy mit értek
+            pattogtatás alatt, alább láthatod a videókon.)
+        </para>
+        <para>
+            Megoldás videó: <link xlink:href="https://bhaxor.blog.hu/2018/08/28/labdapattogas">https://bhaxor.blog.hu/2018/08/28/labdapattogas</link>
+        </para>
+        <para>
+            Megoldás forrása:  <link xlink:href="https://github.com/gilaattila95/Prog1/blob/master/2.Hello%2C%20Turing!/2.4.Labdapattotgtatas">Hello Turing!/2.4.Labdapattogtatas</link>
+        </para>
+        <para>
+            Mentorálva: <link xlink:href="https://github.com/ghjbku">Balázs Tóth</link>
+        </para>
+        <para>
+                        A feladat nehézségi szintjét tekintve már egy magassabb szinten van, vagyis inkább, gondolkodást igényel.
+			Ebben a forráskódban már megjelenik egy pár új parancs, melyeket eddig még nem láttunk.
+			Kezdve az új Header fájllal, a <![CDATA[<math.h>]]> fájllal, amely a matematikai függvényekért felel és minden értéket double típussal kezel(double típust kér, és azt ad vissza), 
+                        ilyen függvény például az *abs*, amely az abszolút értéket jelöli,
+			de ebben a header fájlban található a *pow* és az *sqrt* is, az előbbi a hatványozást, míg utóbbi a négyzetgyököt kezeli.
+			Aztán ott van az a furcsa sor két sorral alább, az a bizonyos *#define*... ezeket a sorokat úgynevezett "Nevesített konstansok" definiálásánál használjuk.
+			Ezek a konstansok értéket nem változtatnak a program futása során, és bármilyen értéket adhatunk nekik.
+        </para>
+        <para>
+            Maga  feladat megoldása nem volt egyszerű, mint általában minden nehéz elsőre, de kis tanulmányozás után gyorsan a végére értünk.
+            A forráskód egy változata csak a megoldásnak, ugyanis mint minden problémára, erre is több létezik. Itt az <code>ncurses</code> függvény könyvtárat
+            vesszük használatba, mely terminálos interfészek (TUI-k) létrehozására lett elkészítve. Ezt le is kell szednünk terminálban, hogy később futattni tudjuk a programunkat.
+            A <command>sudo apt-get install libncurses5-dev libncursesw5-dev</command> paranccsal tehetünk meg.
+            Viszont fordításnál írjuk oda pluszba a <command>-lncurses</command> parancsot.
+
+        </para>
+        <para>
+            A program lényegi része az, hogy az xj, xk, yj, yk változóknak értékét beállítjuk úgy, 
+            hogy az a maradéka legyen a saját értékénél egyel kisebb értéknek és a
+            terminál szélességének a kétszeresének a hányadosával.
+            Letöröljük a képernyőt, hogy ne maradjon fent a labdánk az előző
+            kirajzolásból, azután kírajzolódik a következő labda.
+            Itt rajzoljuk ki a labdát magát, ehhez meghívjuk az <code>mvprintw</code>
+            függvényt. Ez a függvény kiírat egy karaktert a megadott x és y koordinátáknak
+            megfelelően a képernyőn valahol.
+            A refresh függvény szükséges, hogy kimenetet lássunk a terminál ablakunkban,
+            majd váruk 30000 mikroszekundumnyi időt.
+        </para> 
+
+    </section>                     
+
+    <section>
+        <title>Szóhossz és a Linus Torvalds féle BogoMIPS</title>
+        <para>
+            Írj egy programot, ami megnézi, hogy hány bites a szó a gépeden, azaz mekkora az <type>int</type> mérete.
+            Használd ugyanazt a while ciklus fejet, amit Linus Torvalds a BogoMIPS rutinjában! 
+        </para>
+        <para>
+            Megoldás videó: <link xlink:href=""></link>
+        </para>
+        <para>
+            Megoldás forrása: <link xlink:href="https://github.com/gilaattila95/Prog1/blob/master/2.Hello%2C%20Turing!/2.5.Szohossz">Hello Turing!2.5.Szohossz</link>
+        </para>
+         <para>
+            A program ki adja nekünk, hogy mennyire hosszú a gépi szó.
+            Itt most bitshift-eléssel végezzük el a műveletet.
+        </para>
+        <para>
+            Első lépésként eltárolunk egy int változóba "1" értéket, mert ez bitekre bontva az alábbiként néz ki: 0000 0000 ... 0001.
+            A program úgy működik, hogy minden egyes ciklusfutásnál egy bittel eltolja az értéket. (Pl.: első futás: 0000 0000 ... 0010) stb...
+            Majd a ciklusból akkor lép ki, amikor már a a bitek végére ért, és így vizsgálja meg a szóhosszt.
+        </para>
+
+    </section>                     
+
+    <section>
+        <title>Helló, Google!</title>
+        <para>
+            Írj olyan C programot, amely egy 4 honlapból álló hálózatra kiszámolja a négy lap Page-Rank 
+            értékét!
+        </para>
+        <para>
+            Megoldás videó: <link xlink:href=""></link>
+        </para>
+        <para>
+            Megoldás forrása: <link xlink:href="https://github.com/gilaattila95/Prog1/blob/master/2.Hello%2C%20Turing!/2.6.Hello%2C%20Google!">Hello Turing!/2.6.Hello Google!</link>
+        </para>
+        <para>
+            A PageRank a Google keresőmotorjának alapelve, mely rangsorolja a talált oldalakat "minőségük" alapján.
+            Larry Page és Sergey Brin (a Google alapítói) fejlesztették ki 1998-ban a Stanford Egyetemen. 
+            Az alapján számítja a "minőségét", egy oldalra minnél több oldal mutat, annál "minőségibb", viszont az oldalak amik rá mutatnak annk a "minősége" is számításba kerül,
+            másszóval ez egy rekurzív definíció: az a fontos oldal, amire fontos oldalak mutatnak.
+            A PageRank mátrixok segítségével számítja ki és számmal adja meg az oldal minőségét.
+        </para>
+        <para>
+            A "#include math.h" header miatt a fordításhoz a 
+            <command>gcc -o prank.c -lm prank</command> parancs szükséges.
+            A fenti programban négy oldallal számolunk értékeket úgy, hogy:
+            L1 mutat L2-re; L2 mutat L2-re és L3-ra,
+            L3 mutat L1-re, L2-re és L4-re; L4 mutat L2-re.
+            Az adatok mátrixban vannak tárolva, és az eredményt egy egyszerű mátrix szorzás adja meg.
+            Még azt a két esetet is szimuláljuk, hogy ha egy oldal saját magára vagy nem mutat egy oldalra sem.
+   
+        </para>
+    </section>
+
+    <section xml:id="Brun">
+        <title>100 éves a Brun tétel</title>
+        <para>
+            Írj R szimulációt a Brun tétel demonstrálására!
+        </para>
+        <para>
+            Megoldás videó: <link xlink:href="https://youtu.be/xbYhp9G6VqQ">https://youtu.be/xbYhp9G6VqQ</link>
+        </para>
+        <para>
+            Megoldás forrása: <link xlink:href="https://github.com/gilaattila95/Prog1/blob/master/2.Hello,%20Turing!/2.7.Brun%20Tetel">2.Hello, Turing!/2.7.Brun Tetel</link>
+        </para>
+        <para>
+            Először leszedjük az R-base-t, ha az kész, és megnyitottuk, akkor leszedjük a matlab-ot hozzá.
+            Az <command>install.packages("matlab")</command> paranccsal.
+        </para>
+     
+
+        <para>    
+            Ha ez kész betöltjük, a matlab könyvtárát, <command>library(matlab)</command>.
+            Aztán a forrásban lévő függvényt elemezzük majd kiíratjuk az iker párokat. Így kapunk egy grafikont, ami ábrázolja vizuálisan. 
+                    <figure>
+                <title>Brun-Tétel</title>
+                    <mediaobject>
+                        <imageobject>
+                            <imagedata fileref="../img/bruntetel.png" format="PNG" scale="50"/>
+                        </imageobject>
+                    </mediaobject>
+            </figure>
+            A grafikonon az egyre nagyobb értékek felé haladva a görbe egyre laposabb lesz.
+            Ebből következik, hogy előbb utóbb lesz egy olyan érték, amelyet nem képes átugrani.
+        </para>
+    </section>
+    
+    <section xml:id="bhax-textbook-feladatok-turing.MontyHall">
+        <title>A Monty Hall probléma</title>
+        <para>
+            Írj R szimulációt a Monty Hall problémára!
+        </para>
+        <para>
+            Megoldás videó: <link xlink:href="https://bhaxor.blog.hu/2019/01/03/erdos_pal_mit_keresett_a_nagykonyvben_a_monty_hall-paradoxon_kapcsan">https://bhaxor.blog.hu/2019/01/03/erdos_pal_mit_keresett_a_nagykonyvben_a_monty_hall-paradoxon_kapcsan</link>
+        </para>
+        <para>
+            Megoldás forrása: <link xlink:href="https://github.com/gilaattila95/Prog1/blob/master/2.Hello%2C%20Turing!/2.8.%20Monty%20Hall%20problema">2.Hello, Turing!/2.8. Monty Hall problema</link>
+        </para>
+        <para>
+            A Monty-Hall probléma szerint 3 ajtóval kerülünk szembe, a 3 ajtó közül 1 mögött van egy nyeremény, a másik 2 ajtó mögött pedig semmi.
+            Választunk egy ajtót, majd felfednek egyet, amely mögött semmi sem volt. Majd kapunk egy lehetőséget , hogy megváltoztassuk az ajtónkat, vagy maradunk az első döntésnél.
+        </para>
+        <para>
+            A kérdés pedig így hangzik:
+            Mennyi esélyünk van az értékes nyeremény kinyitására, ha váltunk, illetve ha maradunk az általunk először kiválasztott ajtónál?
+        </para>
+        <para>
+            Az alábbi program erre mutat szimulációt:
+        </para>
+        <para>
+            Ha ezt a kérdést feltesszük valakinek, könnyen rávágják sokan a választ, hogy 50%-50%, pedig bármilyen furcsán is hangzik, nem ez a helyes válasz.
+            Abban az esetben ha ajtót váltunk, 2/3 valószínüséggel nyithatunk rá az értékes nyereményre, ellenben ha maradunk a választásunknál csupán 1/3 valószínűséggel találjuk az ajtónk mögött az értékes nyereményt.
+        </para>
+        <para>
+            A magyarázat pedig a következő, amit a program több kísérlettel is szimulál:
+            Ha a kiinduló helyzetet vesszük: van 3 ajtó, amik közül 2 mögött van értéktelen nyeremény, tehát 2/3 esélyel választunk először olyan ajtót, amely mögött az értéktelen nyeremény van.
+            Ebben az esetben már csak egy olyan ajtó van ami mögött értéktelen nyeremény lapul, azt pedig feltárják előttünk, tehát ha váltunk ajtót akkor már csak az értékes nyereményt rejtő ajtóra válthatunk.
+            1/3 esélyel találjuk el azt az ajtót elsőre, amely mögött az értékes nyeremény van, ezesetben ha váltaunk akkor mág csak veszíthetünk.
+        </para>
+
+    </section>
+
+</chapter>                

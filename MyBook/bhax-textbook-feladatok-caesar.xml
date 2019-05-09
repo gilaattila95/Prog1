@@ -1,0 +1,296 @@
+<chapter xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" version="5.0" xml:lang="hu">
+    <info>
+        <title>Helló, Caesar!</title>
+        <keywordset>
+            <keyword/>
+        </keywordset>
+    </info>
+    <section>
+        <title>
+            <type>double **</type> háromszögmátrix</title>
+        <para>
+            Írj egy olyan <function>malloc</function> és <function>free</function>
+            párost használó C programot, amely helyet foglal
+            egy alsó háromszög mátrixnak a szabad tárban!
+        </para>
+
+        <para>
+            Megoldás videó:
+        </para>
+        <para>
+            Megoldás forrása: <link xlink:href='https://github.com/gilaattila95/Prog1/blob/master/4.Hello%20Ceasar!/4.1.%20double**%20h%C3%A1romsz%C3%B6gm%C3%A1trix'>Hello/ó Ceasar!/4.1. double** haromszogmatrix</link>                
+        </para>
+        <para>
+            A feladatban a pointerekkel fogunk még jobban megismerkedni. Elsősorban mi is a háromszögmátrix: olyan mátrix melyben a sorok és az oszlopok száma azonos, tehát négyzetes mátrix, 
+            és a főátló alatt(alsó háromszög mátrix) vagy a főátló felett (felső háromszögmátrix) csupa nulla áll.
+            
+            A program müködése az alábbi ábrán jól olvasható. 
+       
+            <figure>
+                <title>Háromszögmátrix</title>
+                    <mediaobject>
+                        <imageobject>
+                            <imagedata fileref="../img/haromszog.png" format="PNG" scale="40"/>
+                        </imageobject>
+                    </mediaobject>
+            </figure>
+        </para>
+        <para>
+            Most, hogy tudjuk, mit várunk el a programtól, nézzük meg, hogyan lehet ezt megvalósítani. Ahogy a feladat kiírásában is láthatjátok,
+            ezt egy egészre mutató mutatatónak a mutatójával fogjuk létrehozni. Gondolom ez most egy kicsit
+            bonyolultnak hangzik, de ahogy megyünk végig a forráskód olvasásán minden értelmet nyer majd.
+            
+            A könnyebb megértés érdekében vegyük sorra, hogy mi is van az ábrán. Legfelül látjuk az <function><![CDATA[int **tm]]></function> mutatót, ez a deklaráció. Azért áll 4 négyzetből, mert az
+            int típusú változók 4 bájtosak. És ez a mutató egy <function><![CDATA[int*]]></function>-ra mutat, vagyis annak a memóriacímére, a memóriacím kerül be a kék oválisba.
+            Ezután láthatod a <function>tm+1</function>-et, ez azt jelenti, hogy a <function>tm</function> mutató "eggyel" arrébb mutat, vagyis 4 bájttal árrébb. 
+            A <function><![CDATA[*(tm+1)]]></function>-el pedig a benne lévő értéket kaojuk meg. Ezzel ekvivalens jelölés, mely talán jobban érthető, ha úgy képzeljük el ezt,
+            mintha egy tömb lenne. Tehát a <function>tm+1</function> értelmezhető így: <function><![CDATA[&tm[1]]]></function>, vagyis a <function>tm</function> tömb második elemének
+            memóriacímeként. Ebből következik, hogy a <function><![CDATA[*(tm+1)]]></function> pedig a <function><![CDATA[tm[1]]]></function>, mely nem más, mint a <function>tm</function> tömb második elemének
+            az értéke. Mivel még mindig a pointereknél tartunk, ezért ez az érték szintén egy memóriacím lesz, mégpedig egy int típusú változójé. És ezzel megérkeztünk a 
+            változók szintjére, ahol már nincsenek pointerek. Ha azt akarod tudni, hogy mi a <function><![CDATA[*(tm+1)]]></function> által mutatott int értéke, akkor egyszerű a dolgunk,
+            csak elé rakunk még egy csillagot, tehát <function><![CDATA[*(*(tm+1))]]></function>. Értelem szerűen, itt úgy tudsz a következő elemre mutatni, hogy +1-et hozzáadsz, vagyis
+            <function><![CDATA[*(tm+1)+1]]></function>, ennek az értékét pedig <function><![CDATA[*(*(tm+1)+1)]]></function>. Ebben az esetben is használhatod a tömbös analógiát. Mivel a mátrix lényegében
+            egy két dimenziós tömb, ezért ábrázolhatod így is <function><![CDATA[&tm[1][1]]]></function> a memóriacímet, és <function>tm[1][1]</function>-el az értékét.
+            Összességében rajtad áll, hogy melyiket szeretnéd használni, kezdetben talán a tömbös megoldás érthetőbb, de érdemes hozzászokni a másikhoz, mert az az elterjedtebb. 
+        </para>
+        <para>
+            Most elemezzük a programot sorról sorra.
+            <programlisting language="c"><![CDATA[
+                #include <stdio.h>
+                #include <stdlib.h>
+
+                int
+                main ()
+                {               
+                    int nr = 5;
+                    int **tm;]]>
+            </programlisting>
+            Az elején, ahogy már megszoktad includálj a megfelelő header fájlokat, az stdio.h ismerős
+            lehet, ez kell a <function>printf</function> használatához, és most megismerkedünk
+            az stdlib.h-val, mely a <function>malloc</function> utasítás használatához lesz szükséges.
+            Az <function>nr</function> tartalmazza az oszlopok számát, ls itt deklarájuk a
+            <function><![CDATA[**tm]]></function> pointert is.
+            <programlisting language="c"><![CDATA[
+                printf("%p\n", &tm);
+    
+                if ((tm = (int **) malloc (nr * sizeof (int *))) == NULL)
+                {
+                    return -1;
+                }
+
+                printf("%p\n", tm);]]>
+            </programlisting>
+            Ebben a részben a <function>printf</function> kiírja a tm memóriacímét, majd az if feltételén belül, a <function>tm</function>-et ráállítjuk a malloc által
+            foglalt 5*8 bájtnyi táterületre. A malloc egy pointert ad vissza, ami a lefoglalt tárra mutat, <function>void *</function> típusút, tehát bármely típust
+            vissza tud adni típuskényszerítéssel. Jelen esetben ez <function>**int</function> visszaadására kényszerítjük. Majd az if feltételeként megvizsgáljuk, hogy
+            tudott-e lefoglalni területet a malloc, ha nem, akkor visszatérünk hibával. Ha a tárfoglalás sikerült, akkor kíírjuk a lefoglalt tár címét.
+            Ha az ábrát visszanézed, most tartunk a második sorban.
+            <programlisting language="c"><![CDATA[
+                 for (int i = 0; i < nr; ++i)
+                 {
+                       if ((tm[i] = (int *) malloc ((i + 1) * sizeof (int))) == NULL)
+                       {
+                            return -1;
+                        }
+
+                }]]>
+            </programlisting>
+            A <function>for</function> cikluson belül "létrehozzuk" az ábra szerinti második sor elemeit, melyek <function>int *</function> típusúak. A ciklusban 0-tól megyünk 4-ig, egyesével
+            lépkedve. A <function>tm</function> mutatót itt úgy kezeljük, mint egy tömböt, és a tm által mutatott mutatókahoz foglalunk tártetületet, és ráállítjuk őket. Éredemes megfigyelni,
+            hogy mindegyikhez i+1-szer 4 bájtot foglalunk le, és a malloc <function>int *</function>-ot ad vissza. Itt is megvizsgáljuk, hogy sikerült-e a foglalás, hanem hibával
+            térünk vissza. Most kész a másdik sor, és mindegyik <function>int *</function> egy harmadik sorban lévő <function>int</function>-ek csopoortjának első elemére mutat, mindegyik más
+            csoportra.
+            <programlisting language="c"><![CDATA[
+                printf("%p\n", tm[0]);    
+    
+                for (int i = 0; i < nr; ++i)
+                    for (int j = 0; j < i + 1; ++j)
+                        tm[i][j] = i * (i + 1) / 2 + j;
+
+                for (int i = 0; i < nr; ++i)
+                {
+                    for (int j = 0; j < i + 1; ++j)
+                        printf ("%d, ", tm[i][j]);
+                    printf ("\n");
+                }]]>
+            </programlisting>
+            Kiíratjuk a harmadik sor első int csoportjának első elemének a memóriacímét. Majd a for cikluson belül értéket adunk a harmadik sori <function>int</function>-eknek. Az
+            <function>i</function>-vel megyünk a 4-ig, vagyis <function>nr-1</function>-ig, <function>j</function>-vel pedig mindig 0-tól i-ig. Az i jelöli a sorok számát, a j pedig
+            az oszlopokét. Mártix minden eleméhez a sorszám*(szorszám+1)/2+oszlopszám, és ezzel megkapjuk a feladat legelején felvázolt mátrixot, amit a következő <function>for</function>
+            -ban már csak elemenként kiíratunk.
+         </para>
+           
+    </section>        
+    <section>
+        <title>C EXOR titkosító</title>
+        <para>
+            Írj egy EXOR titkosítót C-ben!
+        </para>
+        <para>
+            Megoldás videó:
+        </para>
+        <para>
+            Megoldás forrása: <link xlink:href="https://github.com/gilaattila95/Prog1/blob/master/4.Hello%20Ceasar!/4.2.%20C%20EXOR%20titkosito">Hello Ceasar!/4.2. C EXOR titkosito</link>               
+        </para>
+        <para>
+            Az EXOR titkosítás a Boole-algebra XOR műveletén alapszik, mely elve: A XOR B = C és C XOR B = A.
+            Ezt úgy kell értelmezni titkosításnál, hogy az A a titkosítandó fájl egy bitje, a B a kulcs egy bitje, a C pedig a titkosított bit.
+            Ennek az a nagy hátránya, hogy amekkora a titkosítandü adatunk, akkora méretű kulcs szükséges, és ugyan akkora méretű titkosított fájl keletkezik.
+            Ezeket célszerű nem egy helyen tárolni, ugyanis a kulccal könnyen visszafejthető.
+            
+            Használjuk a <filename>tiszta.txt</filename> fájlt, amely egy rövid szövegrészletet tartalmaz.
+            <programlisting><![CDATA[
+Nem tudok kimerítő leírást adni arról, hogy hogyan tudsz megtanulni
+programozni -- nagyon összetett tudásról van szó. Egyet azonban
+elárulhatok: a könyvek és tanfolyamok nem érnek túl sokat (sok,
+valószínűleg a legtöbb hacker autodidakta). Aminek van értelme:
+(a) kódot olvasni és kódot írni.
+
+Hogyan lesz az emberből Hacker]]>
+            </programlisting>
+            Ahhoz, hogy titkosítani tudjuk a szövegrészletet, az <filename>exor.c</filename> kódot kell fordítanunk, majd egy tetszőleges kulcs megadása után futtatnunk.
+            Hogyan futtatsd:
+            <programlisting>
+                <![CDATA[
+                $ gcc exor.c -o e -std=c99
+                $ ./exor 72653985 < tiszta.szoveg >titkos.szoveg
+                ]]>
+            </programlisting>
+            Ha titkosítás után megnézed a <filename>titkos.szoveg</filename> fájlt, láthatod, hogy titkosítva lett az eredeti szöveged.
+            Megvan a 8 számjegyű kulcs (72653985), és mostmár a tiszta szövegünk is titkosítva van (létrejött a <filename>titkos.szoveg</filename> fájl). 
+            Az alábbi módon le tudod ellenőrízni a visszafejtést:
+            <programlisting><![CDATA[
+$ ./exor 56789012 <titkos.szoveg
+Nem tudok kimerítő leírást adni arról, hogy hogyan tudsz megtanulni
+programozni -- nagyon összetett tudásról van szó. Egyet azonban
+elárulhatok: a könyvek és tanfolyamok nem érnek túl sokat (sok,
+valószínűleg a legtöbb hacker autodidakta). Aminek van értelme:
+(a) kódot olvasni és kódot írni.
+
+Hogyan lesz az emberből Hacker]]>
+            </programlisting>
+
+        </para>            
+    </section>        
+    <section>
+        <title>Java EXOR titkosító</title>
+        <para>
+            Írj egy EXOR titkosítót Java-ban!
+        </para>
+        <para>
+            Megoldás videó:
+        </para>
+        <para>
+            Megoldás forrása:     <link xlink:href="https://github.com/gilaattila95/Prog1/blob/master/4.Hello%20Ceasar!/4.3.%20Java%20EXOR%20titkosito"> 4.Hello Ceasar!/4.3. Java EXOR titkosito</link>           
+        </para>
+        <para>
+            A Java programozási nyelv a C és a C++ programnyelvek alapján jött létre.
+            A Java objektum orientált nyelv, más szóval a class-ok hajtják végre a a feladatokat.
+            A Java program egy nagy class, amiben a main függvény is található.
+        </para>
+        
+        <para>
+            A program egy public classból áll ami az ExorTitkosító néven van a programban, aminek két public class a része.
+        </para>
+        <para>
+            Az egyik public class a main függvényé. A static azt jelenti, hogy a main része az ExorTitkosító class-nak de egy külön álló objektum.
+            Megadunk egy argumentumot String[] args néven.
+        </para>
+        <para>
+            Előjön a try-catch, ami lényege, hogy a try -ban van a végrehajtandó kód, ami ha nem képes lefutni, hibát ad és a catch elkapja majd kiírja az outputra.
+            A try -on belül a new memóriahelyet foglal az ExorTitkosító fügvénynek, ami paraméterként kapja az args[0] változót, ami a kulcsot tárolja. 
+            Még a System.in ami a standard inputot és a System.out a standard kimenetet jelöli.
+        </para>
+        <para>
+            Az ExorTitkosító függvény felveszi a kulcsSzöveg, a bejövőCsatorna és a kimenőCsatorna argumentumokat.
+            Létrehozunk byte tipusú változókat, melyek kis helyet foglaló változók, melyek maximum 8 bájtot foglalnak.
+            Létrehozzuk a kulcs változót, amibe a lulcsSzoveg.getBytes függvénnyel tároljuk a kulcs biteket.
+            Létrehozzuk a buffer tömböt aminek, mivel byte tipúsa van 256 eleme lehet maximum.
+        </para>
+        <para>
+            A while ciklus addig megy amíg olvassa a bájtokat a bejövőCsatorna.read(buffer) fügvénnyel.
+            A for ciklus pedig EXOR-ozza a biteket.
+        </para>
+        <para>
+            Legvégül már csak kiíratjuk itt is a kimenetre a <varname>buffer</varname> karaktereit.
+        </para>
+
+    </section>        
+    <section>
+        <title>C EXOR törő</title>
+        <para>
+            Írj egy olyan C programot, amely megtöri az első feladatban előállított titkos szövegeket!
+        </para>
+        <para>
+            Megoldás videó:
+        </para>
+        <para>
+            Megoldás forrása: <link xlink:href="https://github.com/gilaattila95/Prog1/blob/master/4.Hello%20Ceasar!/4.4.%20C%20EXOR%20toro">Hello Ceasar!/4.4. C EXOR Törő</link>                
+        </para>
+        <para>
+            Ez a feladat, az EXOR titkosítás második része, ugyan azokkal a fájlokkal dolgozom, így biztosítva a hiba kizárását.
+            Az előző feladatban egy 8 számjegyű kulccsal dolgoztunk (72653985), ennek megfelelően a <filename>t.c</filename> kódja is ehhez van beállítva(#define KULCS_MERET 8).
+            A <function>tiszta_lehet</function> függvényben feltesszük, hogy tartalmazhatja a leggyakoribb magyar szavakat(hogy, nem, az, ha).
+            Az átlag szóhossz megadásával csökkentjük a töréseket, ennek ellenére valószínűleg nem csak a helyes kulcsot  fogjuk visszakapni.
+            Annak ellenére, hogy a -O3 kapcsolót is felhasználtuk az optimalizáláshoz, viszonylag sok ideig tartott a törés.
+        </para>            
+            
+    </section>        
+    <section>
+        <title>Neurális OR, AND és EXOR kapu</title>
+        <para>
+            R
+        </para>
+        <para>
+            Megoldás videó: <link xlink:href="https://youtu.be/Koyw6IH5ScQ">https://youtu.be/Koyw6IH5ScQ</link>
+        </para>
+        <para>
+            Megoldás forrása: <link xlink:href="https://github.com/gilaattila95/Prog1/blob/master/4.Hello%20Ceasar!/4.5.%20Neuralis%20OR%2C%20AND%20es%20EXOR%20kapu">4.Hello Ceasar!/4.5. Neuralis OR, AND es EXOR kapu</link>               
+        </para>
+              
+        <para>
+            Ennél a feladatnál megint R nyelvet használunk, mellyel neurális hálót hozunk létre, mely tanulásra képes, és közelít az általunk megadott értékhez.
+            A neuron az agy egy sejtje, erről kapta a nevét. A neuron feladata az elektromos jelek gyűjtése, feldolgozása és továbbítása.
+            Az agyunk információfeldolgozását a neuron sejtek hálózata adja.
+            Ezen alapszik a mesterséges intelligencia kutatások.
+            A neuron matematikai modeljét McCulloch és Pitts alkotta meg 1943.
+            A neuron matematikai modellje alapján a neuron akkor küld tovább "elektromos impulzust", ha a bemenetek súlyozott
+            összege meghaladnak egy küszöböt.
+        </para>
+        <para>
+            Először az OR (logikai vagy) műveletet tanítjuk meg a hálónak.
+            
+            A feladathoz a nuralnet könyvtárat használjuk.
+            Az a1, a2 segítségével megadjuk az OR művelet eredményét, melyeket az or.data-ban tároljuk el a data.frame segítségével.
+            Az nn.or lesz a háló, amit megtanítunk.
+            a neurlnat() fügvényt táruljuk az nn.or-ban
+        </para>
+        <para>
+            Másodszor az AND (logikai és)művelet következik, melyet ugyanúgy tanítjuk, mint az OR művelet
+            A változás, hogy ahol OR volt most AND lesz.
+        </para>
+        <para>
+            A harmadik pedig az EXOR művelet, ami viszont kicsit bonyolultabb.
+            A változtatás ami szükséges, hogy mosmár rejtett neuronokat is kell létrehozni, hogy hatékonyabb legyen a tanulás.
+            Egyszerűen a hidden paramétereket átírjuk (6, 4, 6)-ra.
+            Így már sikeresen megközelíti a kívánt értékeket EXOR művelettel is.
+        </para>
+        
+    </section>        
+    <section>
+        <title>Hiba-visszaterjesztéses perceptron</title>
+        <para>
+            C++
+        </para>
+        <para>
+            Megoldás videó:
+        </para>
+        <para>
+            Megoldás forrása:                
+        </para>
+        <para>
+         Passzolva.(első labor passzolás.)
+        </para>            
+
+    </section>
+</chapter>

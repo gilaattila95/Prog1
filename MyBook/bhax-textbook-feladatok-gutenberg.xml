@@ -1,0 +1,141 @@
+<chapter xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" version="5.0" xml:lang="hu">
+    <info>
+        <title>Helló, Gutenberg!</title>
+        <keywordset>
+            <keyword/>
+        </keywordset>
+        <cover>
+            <para>
+                Programozás tankönyvek rövid olvasónaplói.
+            </para>
+        </cover>
+    </info>
+    <section>
+        <title>Programozási alapfogalmak</title>
+        <para>         
+            <citation>PICI</citation>       
+        </para>
+	
+<para><emphasis role="strong">(11.-15. o.) 1.2 Alapfogalmak:</emphasis></para>
+	<para>
+	Az alap fogalmakat foglalja össze, viszont ellentétben a Keringhan-Ritchie könyvvel, itt nem kódokkal és azoknak az elmagyarázásával mutatja be, hanem inkább ilyen elmélet szerűen tanulás nem gyakorlatiasan, tehát a fogalmak pontos korrekt megfogalmazásával. Így már én az első fejezet után is úgy vélem hogy a KernighanRitchie féle oktatás és magyarázás számomra sokkal kedvezőbb és könnyebben elsíjátítható mint ennél a könyvnél, de persze minden embernél, más, ezért főként azoknak ajánlanám ezt a könyvet aki nem a gyakorlatiasabb példákon átívelő tanulást részesíti előnyben. De persze még a végén erre kitérünk haladjunk is tovább.
+	</para>
+<para><emphasis role="strong">(46.-55. o.) Kifejezések: </emphasis></para>
+	<para>
+	A kifejezések azaz a 3. fejezetben, a címből következtetve is helyesen gondolhatjuk azt hogy a kifejezésekről lesz szó. A kifejezések elméleti tudnivalójával kezd, megtudjuk mit nevezünk például operandusnak, operátornak stb. Valamint még az alakokról is szó esik (prefix,postfix,infix) ugye ezek között mindössze az operátorok és operandusok helyzete a különbség, hogy milyen sorrendbe írjuk őket fel. Azaz ha például egy kifejezés operátorait és operandusait egy bináris fával rajzolnánk fel akkor milyen bejárást alkalmazva jutunk el a felírásokhoz. (értsd úgy hogy preorder=prefix....)
+	</para>
+	<para>
+	A 3.1 "Kifejezés a C-ben" már inkább gyakorlatiasabb szemléletesebb fejezet rész, itt a címből is addódóan a C-ben lévő kifejezéseket mutatjabe azoknak a helyes használatát, kötési irányát stb.
+	</para>
+<para><emphasis role="strong">(55.-57. o.) Utasítások: </emphasis></para>
+	<para>
+	Ezek az oldalak az utasításokról fognak szólni. Az utasítások építik fel a programot ezért fontos az ismeretük. Utasításoknak több fajtája van, mint például értékadó-, ciklusszervező-, hívó-, i/o-, egyéb utasítások. A kijelölt oldalakon ezeknek még nem található részletezése, de a rákövetkező pár oldal taglalja, szerintem érdemes azt is elolvasni hozzá, hisz ott ismerjük meg csak részletesen ezeket az utasításokat valamint ott már forrás kódot is kapunk mellé hogy láthassuk miről is van szó.
+	</para>
+<para><emphasis role="strong">(58.-82. o.) LISP: </emphasis></para>
+	<para>
+	Mint az fentebb említettem érdemes elolvasni, igazából ki is lett jelölve csak másik csokorba. Egészen a 72. oldalig az utasításoknak a részletes szemléltetéséről szól a könyv, én ezt még az előző kijelöléshez soroltam volna. Ugyanis 72. odlalnál a programok szerkezetére tér át a könyv. Ábrás itt-ott forrás kódos módon mutatja be de még mindig inkább elméleti szinten, a paraméterekre is kitér bőségesen, azok megadására és átadására is egyaránt.
+	</para>
+<para><emphasis role="strong">(56.-71. o.) </emphasis></para>
+	<para>Még egyszer fel lett adva, ez a rész összefoglalóan részletesn az utasításokról szól, hasznos és fontos rész a könyvben a két oldalszám közé eső részek.</para>
+<para><emphasis role="strong">(72.-78. o.) és (78.-82. o.) </emphasis></para>
+	<para>Ezek is újra fel lettek adva, nem írnám le még egyszer, fentebb olvasható miről is szól ez az intervallum.</para>
+<para><emphasis role="strong">(82.-85. o.) </emphasis></para>
+	<para>
+	Ez a rész még szintén a programok szerkezetéhez köthető. A blokkal ismerkedünk meg, valamitn a hatáskör fogalmát vesszük át. A hatáskör a c++-ban például fontos ugyanis nem mindegy hogy akár egy osztálynál vagy egy function-nél hol deklarálunk, hol használunk függvényeket stb, ezért érdemes megismerkedni vele.
+	</para>
+<para><emphasis role="strong">(112.-113. o.) </emphasis></para>
+	<para>
+	Ez a rész a kivételkezeléssel foglalkozik. Megszakítások kezelését felhozzuk a program szintjére, ennek a részletes ismertetőjét olvashatjuk/tanulmányozhatjuk át ebben a részben.
+	</para>
+<para><emphasis role="strong">(134.-138. o.) </emphasis></para>
+	<para>
+	Ez a rész pedig az I/O-val foglalkozik, tehát az input és output-tal. Azok ismertetésével (input/output állomány), mikor jön létre, mikor szükséges stb. Állományok deklarációjáról, összerendeléséről, megnyitásáról, feldolgozásáról, lezárásáról esik még szó. Majd a 13.1-ben a különböző nyelveknek az I/O eszközeit mutatja be nekünk az író.
+	</para>
+<para><emphasis role="strong">Összesítés: </emphasis></para>
+	<para>
+	Alapjába véve egy hasznos könyv, mely rengeteg információt hordozz magában, de számomra kicsit száraz, szerintem jobb a Kernighan féle könyv mely példákon keresztül tanít. De ennek ellenére ezt is ajánlanám azoknak akik a C nyelvről szeretnének minél több tudást a magukénak érezni.
+	</para>
+    </section>        
+    <section>
+        <title>Programozás bevezetés</title>
+        <para>                
+            <citation>KERNIGHANRITCHIE</citation>
+        </para>
+        <para>
+            Megoldás videó: <link xlink:href="https://youtu.be/zmfT9miB-jY">https://youtu.be/zmfT9miB-jY</link>
+        </para>
+	<para>
+	Én fejezetenként adok egy kis összefoglalót hogy miről is szól az adott fejezet, így teljesíteném az olvasónapló megírását ennél a feladatnál.
+	</para>
+<para><emphasis role="strong">1. Fejezet:</emphasis></para>
+	<para>
+	 A könyv az alapfogalmakkal és alapismeretekkel indít. Az 1.1-ben a szokásos "Hello, World!" programot írja meg és magyarázza el a "Halló, mindenki" példán keresztül. Majd a változókat és annak típusait nézi át részletesebben az 1.2-ben. Valamint még ugyan itt a kommentekről is olvashatunk továbbá a while ciklus is megjelenik. Míg az 1.3-ban a for ciklust részletezi a könyv, amit az előző whilehoz hasonlítva mutat be. 1.4-be szimbolikus állandókat mutatja be az olvasóknak a könyv. Az 1.5-ben a karakterekkel foglalkozó függvényekről kapunk egy részletes összefoglalót amely bemutatja többek közt a beolvasást, kiírást, sorok/szavak számlálását. Az 1.6 alfejezetben a tömbökről lesz szó, azoknak az alkalmazásáról, a könyv karakter megszámlálása valamint üres hely megszámlálása példáján mutatja be hasznosságukat. Ezután az 1.7-be a függvényeké lesz a főszerep, a hatványozást mutatja be a könyv függvények segítségével. 1.8-ba pedig az argumentumokat taglalja a könyv. A fejezet végén pedig újra, csak azúttal részletesebben még egyszer megnézzük a tömböket és változókat.
+	</para>
+<para><emphasis role="strong">2. Fejezet:</emphasis></para>
+	<para>
+	A 2.fejezet címként (tehát a könyv alcímként) megkapta a "Típusok, operátorok és kifejezések" címet, mely szerintem nagyon lényegretörő, ugyanis valóban ezekről lesz szó. A fejezet nagyon nagy részleteséggel taglalja a változónevek, adattípusok és méretek, állandók, aritmetikai operátorok, logikai és relációs operátorok használatát fontosságát. A deklaráció fontoságáról és annak ki nem hagyhatóságát is ki emeli a 2.4-be. Megismerkedhetünk a típus konverziókkal, valamint különféle operátorokról és kifejezésekről olvashatunk a 2. fejezet második felében, ami nagyon fontos, valamint szerintem a programozás alapjai, ezért érdemes elolvasni figyelmesen.
+	</para>
+<para><emphasis role="strong">3. Fejezet:</emphasis></para>
+	<para>
+	Ez a fejezet a vezérlési szerkezetekkel fog foglalkozni. Az olvasó számára bemutatja a leghasznosabb és legfontosabb utasításokat mint például az if, else if, switch, break, continue, goto. Valamint a ciklusszervezést mutatja meg az elején említett while és for utasítással, valamint a do-while-al ami a névből is láthatóan a whilehoz hasonló felépítésű és működésű, csak egy kisebb változtatással. Még pedig az hogy a do-while egyszer mindenképpen le fog futni, de nem is írok többet, a könyv nagyon jól bemutatja ezt is, szintén egy hasznos és "programozás alapja" fejezetnek mondanám ezt is.
+	</para>
+<para><emphasis role="strong">4. Fejezet:</emphasis></para>
+	<para>
+	A 4. fejezet a függvényekkel kapcsolatos alapfogalmakkal kezd, ugyanis a fejezet a függvények és programok szerekezetét taglalja. Szintén precíz részletes leírást kapunk a dolgokról az eddig megszokott módon. Először az egyszerőbb függvényeket mutatja be majd a nem egésszel visszatérő függvényeket is. A külső változókról is szót ejt valamint a statikus változókat is kifejti a 4.6-ba, míg a 4.7-be a regiszter változókkal ismerkedhet meg az olvasó. Szintén ebben a fejezetben még bemutatásra kerül a tartományok érvényességi szabálya, a blokkstruktúrák és header állományok. Változók incializálását részletesebben újra elismétli, a fejezet végén pedig a rekurziót mutatja be valamint a C előfeldolgozó rendszert, ahol az állományok beépítése a #define által való makróhelyettesítés a valamint a feltételes fordítás kap szerepet.
+	</para>
+<para><emphasis role="strong">5. Fejezet:</emphasis></para>
+	<para>
+	Az ötödik fejezetben a főtéma a mutatók és a tömbök lesznek. Elsőnek is a mutatókat a címzéseket mutatja be, majd később a mutatók és tömbök kapcoslatát is, változásként az emelhető ki hogy ábrákkal segíti a megértést, ami szerintem nagyon jó, ugyanis könnyebb úgy megérteni ha az ember nem csak olvasni tudja a kódcsipeteket és a magyarázó szöveget hanem kis ábrákat mellé nézve értelmezi a mutatókat például vagy a tömbök számozását 0-tól a memóriában foglalt területen. Ugyan ebben a fejezetben lesz még szó címaritmetikáról karaktermutatókról és függvényekről. Valamint a mutatóra mutató mutatókról is, ami számomra régebben bonyolultnak tűnt, ezt elolvasva hasonló helyzetben lévő embereknek sokat segíthet. Mutatótömbök és több dimenziós többök bemutatása incializálása, értelmezése több alfejezet is taglalja ezeket. Majd a fejezet végén előkerülnek a parancssor-argumentumok és a bonyolultabb deklarációk is. Ez a fejezet már nem annyira az alapokat részletezi hanem azokra már építve kissé de még mindig új "alap" fogalmakat bevezetve és elmagyarázva mutatja azt be.
+	</para>
+<para><emphasis role="strong">6. Fejezet:</emphasis></para>
+	<para>
+	A 6. fejezet a struktúrák köré épül. Mélyebben belemegyünk ebbe a témába, és részletesen, ábrákkal is segítve, a struktúrák működését veszi át, valamint az azokra épülő dolgokat mint például a struktúratömböket, a struktúra és függvények viszonyát, valamint a struktúra és mutatók együttesét, önhivatkozó struktúrákat. Ez a fejezet már egy haladóbb szint szerintem, itt már számomra is sok új dolog volt és ha csak a mellékelt kódokat nézzük is, azok is már bonyolultabbak mint az előző fejezetben mellékelt kódok, viszont nem kell megijedni ugyanis a szokásos módon ezt is jól elmagyarázza a könyv és meg lehet érteni elolvasás után.
+	</para>
+<para><emphasis role="strong">7. Fejezet:</emphasis></para>
+	<para>
+	A hetedik fejezet főként az adat ki- és bevitelről szól. Annak részletesebb elismétléséről. Megjelenek a függvények részletes leírása, olyanoké mint például a printf vagy scanf, valamint a fejezetben a karaktervizsgáló és -átalakító függvényekről is kapunk egy kis táblázatot. A hibakezelésről is szó esik az stderr és exit függvények mellett. Matematikai függvények és egyéb függvényekről is szó esik még, hogy milyen könyvtárba tartoznak, azaz mit kell includeolnunk hogy elérjük őket, mit tudnak kezdeni a bemenetként akpott dolgokkal stb. Valamint a legutolsó alfejezetben a 7.8.7-ben a véletlenszerű számgenerálást ismerjük meg. 
+	</para>
+<para><emphasis role="strong">8. Fejezet:</emphasis></para>
+	<para>
+	A 8. fejezetben a UNIX rendszer adatbevitellel és kivitellel ismerkedünk meg. Különböző függvényeket mutat be, számomra ez a fejezet már nem volt annyira érdekes, de azért érdemes ezt is végig olvasni sose tudni mikor vesszük hasznát, de véleményem szerint ez már tényleg inkább csak plusz infók hogy a tudásunkat bővítsük.
+	</para>
+<para><emphasis role="strong">Összesítés:</emphasis></para>
+	<para>
+	Összeségében szerintem ez egy nagyon hasznos és precízen összeállított könyv, nagyon sokat tud segíteni a kezdő C programozók számára. Ezért én mindenképpen ajánlanám. Hátrányként esetleg azt tudnám megemlíteni hogy itt-ott vannak hibák elírások, de ez nagyon pici hátrány a sok-sok előny mellett.
+	</para>
+	<para>A könyvnek van függeléke is mely még több hasznos és fontos dolgot vesz számon. Nem tudtom hogy az olvasónapló vonatkozik rá, de szerintem mindenképpen érdemes beleolvasni. Mivel még több hasznos információval rendelkezik. Egy szó mint száz érdemes olvasgatni mind a fő fejezeteket mind a függelékeket is, nagyon hasznos, szemléletes a nyelv bemutatása benne, valamint figyelmet fentartó módon mutatja be a dolgokat nem pedig untat minket.</para>
+    </section>        
+    <section>
+        <title>Programozás</title>
+        <para>                
+            <citation>BMECPP</citation>
+        </para>
+	<para>
+	Ezt az olvasónaplót a kijelölt oldalszámok elolvasása után írom meg.
+	</para>
+<para><emphasis role="strong">(17.-59. o.):</emphasis></para>
+	<para>
+	Ezek az oldalok az osztályokat taglalják valamint az objektumokat. Nagyon részletesen, példákkal, kódokkal dusítva, személy szerint nekem ez a rész sokat segítet, ugyanis rengeteg kérdőjel volt bennem mind az osztályokkal mind az objektumorientáltsággal kapcsolatban, ezek az oldalak pedig választ tudnak adni. Tipikusan olyan rész ahol még tapasztaltként is fellapozhatjuk ha valami nem tiszta.
+	</para>
+<para><emphasis role="strong">(187.-197. o.):</emphasis></para>
+	<para>
+	Ez a rész a kivételkezelésről szól. A könyv ezen az oldalalakon keresztül végig azt taglalja, eléggé részletesen valamint forráskódokkal és feladatokkal tűzdeli meg az információ csokrokat, ezáltal az olvasó számára még jobban értelmezhetőek a dolgok. Try-catch blokkokat mutatja be azoknak egymásba ágyazásáról is szó esik valamint az elkapott kivétel újradobásáról is. Hasznos rész, nagyon részletes és szemléletes módon mutatja be a kivételkezelést c++-ban.
+	</para>
+<para><emphasis role="strong">190. példa:</emphasis></para>
+	<para>
+	A példában láthatóvá válik az hogy mi történik meg ha a felhasználó bemenetként 0-át ad meg vagy ha éppen ellenkezőleg bemenetnek nem nullát ad meg. Mivel a kódunk a beérkező szám reciprokát számolja ki és írja ki, ezért ugye 0 nem lehet mivel nem értelmezünk olyan törtet aminek 0 a nevezője. Ennek segítségével mutatja be hogy lehet használni a try-catchet, ugyanis ha 0-át adunk bemenetnek akkor dobni fog egy hibát amit elkapunk és kiírjuk hogy a bemenetnek nem nullának kell lennie.
+	</para>
+<para><emphasis role="strong">197. példa::</emphasis></para>
+	<para>
+	A példában azt láthatjuk, hogy az f2 kivételt dob, így f2-ben a definált i lokális változó felszabadul, míg az f1-ben lefoglalt Fifo fifo objektum felszabadul, mert meghívódik a destruktora. Majd lefut a main függvényben lévő catch blokk. Ki emeli továbbá a könyv is azt a fontos tényt hogy ugyan a hiba dobás és elkapás között kód fut le, de semmiképpen ne dobjunk új hibát míg az elsőt el nem kaptuk, mert annak kezelése nem lesz lehetséges.
+	</para>
+<para><emphasis role="strong">(211.o) 58-as fólia kapcsán:</emphasis></para>
+	<para>
+	Üzenet kezeléssel foglalkozik, valamint az előző try-catch témára épül, egy újabb jó példa eme téma feldolgozására. Valamint részletesen taglalja a megoldást, ezzel megértetve az olvasóval a try-catch lényegi működését.
+	</para>
+<para><emphasis role="strong">Összesítés:</emphasis></para>
+	<para>
+	Összesítésben egy nagyon jó és hasznos könyv, szemléletesen és részletesen mutatja be a C++ tualjdonságait és használatát. Ajánlott belőle szemezgetni, tanulgatni. Hasznos, lényegretörő és szemléletes. Az alapoktól kezdődően egy magasabb szintre fel tudunk fejlődni csak ezen könyv mellett is c++ programozási nyelvben.
+	</para>
+    </section>        
+</chapter>                

@@ -1,0 +1,304 @@
+<chapter xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" version="5.0" xml:lang="hu">
+    <info>
+        <title>Helló, Welch!</title>
+        <keywordset>
+            <keyword/>
+        </keywordset>
+    </info>
+    <section>
+        <title>Első osztályom</title>
+        <para>
+            Valósítsd meg C++-ban és Java-ban a módosított polártranszformációs algoritmust! A matek háttér 
+            teljesen irreleváns, csak annyiban érdekes, hogy az algoritmus egy számítása során két normálist
+            számol ki, az egyiket elspájzolod és egy további logikai taggal az osztályban jelzed, hogy van vagy
+            nincs eltéve kiszámolt szám.
+        </para>
+        <para>
+            Megoldás videó:
+        </para>
+        <para>
+            Megoldás forrása:   <link xlink:href=''></link>             
+        </para>
+        <para>
+            Második labor passz.
+        </para>
+    </section>        
+
+    <section>
+        <title>LZW</title>
+        <para>
+            Valósítsd meg C-ben az LZW algoritmus fa-építését!
+        </para>
+        <para>
+            Megoldás videó:
+        </para>
+        <para>
+            Megoldás forrása: <link xlink:href='https://github.com/gilaattila95/Prog1/blob/master/6.Hello%20Welch!/6.2.%20LZW'>Hello Welch!/6.2. LZW</link>               
+        </para>
+        <para>
+            Az LZW (Lempel-Ziv-Welch) egy veszteségmentes tömörítési algoritmus. 
+            Az informatikában széles körben használt eljárást Terry Welch publikálta 1984-ben az Abraham Lempel és Jacob Ziv által 1978-ban közzétett LZ78 algoritmus továbbfejlesztéseként
+            Az LZW algoritmus (binfa) a bementről olvasva 0 és 1 értékeket kap, amely egy bináris fát épít fel úgy, 
+            hogy mindig megvizsgálja létezik-e már a gyermek, ha nem akkor létrehozza,
+            ha igen addog lépeget a bemeneten, amíg el nem éri a pontot ahol nincs gyermek.
+            Ha létrehozta vissza ugrik a gyökérbe, és kezdi előről.
+        </para>
+        <para>
+            Létrehozzuk a binfa struktúrát, ami áll: az aktuális értékből, a jobb és bal oldali gyermekre mutató mutatókból.
+            Az uj_elem függvény foglalja a memória helyet a malloc segítslglvek a binfa típúsú változóknak és egy mutatót is ad, ami a erre a területre mutat.
+            
+            A main függvényben először létrehozzuk a gyökeret, melynek az értéke '/'.
+            NULL értéket adunk, mivel még nincs gyermeke, a mutatót pedig a gyökérre állítjuk.
+            A while ciklus beolvassa a standard inputról a 0 és 1 értékeket.
+            Ha nincs gyermek és kell, akkor létrehoz egyet, majd visszalép a gyökérbe, ha van csak rálép és aztán ugrik vissza gyökérbe.
+            
+            A kiir függvény inorder bejárást alkalmaz, mely először a jobb oldali gyermeken megy végig és a gyökeren, majd a bal oldali gyermeken, ezeket pedig folyamatosan kiírja.
+            A szabadit függvényben a free függvény segítségével szabaddá tesszük az eddig lefoglalt tárhelyeket.
+            
+        </para>
+        <para>
+            Az ratlag függvényminden bemenetnél kap egy mutatót, ami ha nem NULL értékű, akkor növeljük a melyseg  változót.
+            Ezt az elem gyermekeire is meghívjuk úgy, hogy ha nincs több gyermek, akkor növeli az atlagdb változót, 
+            és az atlagosszeg változót n9veljük a melyseg értékével.
+            Az rszoras függvény a szorasosszeg változó kiszámításáért felelős úgy, hogy a mleyseg-ből kivonj az atlag-ot, aztán négyzetre emeli azt.
+        </para>
+    </section>        
+        
+    <section>
+        <title>Fabejárás</title>
+        <para>
+            Járd be az előző (inorder bejárású) fát pre- és posztorder is!
+        </para>
+        <para>
+            Megoldás videó:
+        </para>
+        <para>
+            Megoldás forrása:  <link xlink:href='https://github.com/gilaattila95/Prog1/blob/master/6.Hello%20Welch!/6.3.%20Fabejaras'>Hello Welch!/6.3. Fabejaras</link>               
+        </para>
+        <para>
+        Postorder bejárás:
+            
+            <programlisting language = "c"><![CDATA[
+void
+kiir (BINFA_PTR elem)
+{
+  if (elem != NULL)
+    {
+      ++melyseg;
+      if (melyseg > max_melyseg)
+	max_melyseg = melyseg;
+      kiir (elem->jobb_egy);
+      // ez a postorder bejáráshoz képest
+      // 1-el nagyobb mélység, ezért -1
+      kiir (elem->bal_nulla);
+      for (int i = 0; i < melyseg; ++i)
+	printf ("---");
+      printf ("%c(%d)\n", elem->ertek < 2 ? '0' + elem->ertek : elem->ertek,
+	      melyseg-1);
+      --melyseg;
+    }
+}]]>
+            </programlisting>
+          A for ciklus a bejárás után lesz, így előbb a gyermekek lesznek feldolgozva, majd a paraméterek.
+            
+        </para>
+        <para>
+            Preorder bejárás:
+            <programlisting language = "c"><![CDATA[
+void
+kiir (BINFA_PTR elem)
+{
+  if (elem != NULL)
+    {
+      ++melyseg;
+      if (melyseg > max_melyseg)
+	max_melyseg = melyseg;
+      for (int i = 0; i < melyseg; ++i)
+	printf ("---");
+      printf ("%c(%d)\n", elem->ertek < 2 ? '0' + elem->ertek : elem->ertek,
+	      melyseg-1);
+      kiir (elem->jobb_egy);
+      // ez a preorder bejáráshoz képest
+      // 1-el nagyobb mélység, ezért -1
+      kiir (elem->bal_nulla);
+      --melyseg;
+    }
+}]]>
+            </programlisting>
+            A for ciklus legelőre került, így előbb a pramatéreker, majd a gyermekeket dolgozza fel.
+           
+        </para>
+    </section>        
+                        
+    <section>
+        <title>Tag a gyökér</title>
+        <para>
+            Az LZW algoritmust ültesd át egy C++ osztályba, legyen egy Tree és egy beágyazott Node
+            osztálya. A gyökér csomópont legyen kompozícióban a fával!
+        </para>
+        <para>
+            Megoldás videó:
+        </para>
+        <para>
+            Megoldás forrása:    <link xlink:href='https://github.com/gilaattila95/Prog1/blob/master/6.Hello%20Welch!/6.4.%20Tag%20a%20gyoker'>Hello Welch!/6.4. Tag a gyoker</link>             
+        </para>
+        
+        <para>
+            A korábbi LZW.c forrást kell átírnunk C++-ba.Class-t használunk majd amibe függvények kerlünek.
+        </para> 
+        <para>
+            A class ismét egy konstruktorral kezdődik, ami a fa mutatót a gyökér elemnek a memóriacímére állítja. A destruktor pedig a <function>szabadit</function> függvényt hívja meg.
+            Operátor túlterheléssel megtudjuk változtatni, hogy mit csináljon egy operátor.
+            A <function><![CDATA[operator <<]]></function> álltal beshifteljuk a fába a bementről olvasott elemeket.
+            A new függvény segítségével foglalunk tárhelyet. 0 esetén az ujNullasGyermek() függvény befűzi az új elemeket a fába, majd a fa mutatót visszaállítjuk a gyökérre.
+            1 esetén ugyan ez történik. Ha már van gyermek, akkor a amutató a gyermekre áll az egyes-/nullasGyermek függvény segítségével.
+            
+            A programban két kiir függvény van, viszont a C++ fordító megkülönbözteti őket a paraméterlistájuk alapján.
+            
+            A get fügvénykre szükségünk lesz, a mélység, az átlagés szórás változók a privát részben lesznek.
+            A <function><![CDATA[operator <<]]></function>-ttúlterheljük, így vissza adunk egy kimenetet, azután átadunk egy kimenetet és egy LZWBinFa referenciát.
+             
+            </para>
+            <para>
+            A privát részben az LZWBinFa osztályon belül létrehozunk egy Csomopont classt, így Csomopont típusú objektumokat nem tudunk a classon kívűl létrehozni.  
+            A Csomopont alapértéke '/' és a gyermekekeinek NUll.
+            A nullasGyermek és egyesGyermek függvények mutatókat adnak vissza a gyermekekre.
+            A getBetu belolvassa a bementről érkező adatokat.
+           
+            
+                    Most pedig a <varname>LZWBinFa</varname> classunk protected része jön, ami csak olyan másik classoknak elérhető, amik a már ismert 
+                    <varname>LZWBinFa</varname> classból lettek származtatva. Itt deklaráljuk a <varname>gyoker</varname> változót, valamint a <varname>maxMelyseg, 
+                        atlag, szoras</varname> változók is itt vannak meghatározva, valamint ezeknek a kiszámítására szükséges függvények is. 
+        
+        </para>
+        <para>
+            Eljutottunk a class kivüli részhez. Az eddig deklarált függvényeinket, most definiáljuk. Ezeket az LZWBinFa::_nev_ előtag segítségével kezelhetjük.
+            A már lefordított program hibás fuatattás esetén, ad egy üzenetet, hogyan kell helyesen lefutattni.
+            
+            A main függvény először megvizsgálja, hogy elegendő mennyiségű argumentumot kapott-e
+            Egy mutatót állítunk a bemeneti fájlra, megvizsgáljuk a 3. argumentumot, hogy 'o'-e és ha nem akkor hibával kilép.
+            A beFile argumentumai egy a bemenetre mutató mutató, a második jelzi, hogy az első argumentum tartalma beolvasásra kerül.
+            Ha a bemenet nem létezik, akkor ismét hibával kilép.A kiFile a negyedik argumentumokat kapja. A bemenetről a b változóba lesz olvasva, így létrehozásra kerül az LZWBinFa objektum.    
+           
+            Az első while ciklus beolvassa a bemenetet a b változóba, majd sorvégnél leáll.
+            A második while ciklus a beolvasottbemenet feldolgozására ls a fa felépítésre van.
+            A for ciklus a beolvasott karakterek bitjein végig megy, majd ha a b bitenkénti éselésével 1 értéket kapunk, akkor az kerül a fába ha 0 akkor az. 
+            Minden ciklusfutásnál a b értéke shiftelve lesz.
+    
+            A végén a kiFile-ba beshifteljük a már megépített a program, és az extra információkat.
+        </para>
+        
+    </section>        
+                
+    <section>
+        <title>Mutató a gyökér</title>
+        <para>
+            Írd át az előző forrást, hogy a gyökér csomópont ne kompozícióban, csak aggregációban legyen a 
+            fával!
+        </para>
+        <para>
+            Megoldás videó: 
+        </para>
+        <para>
+            Megoldás forrása:  <link xlink:href='https://github.com/gilaattila95/Prog1/blob/master/6.Hello%20Welch!/6.5.%20Mutato%20a%20gyoker'>Hello Welch!/6.5. Mutato a gyoker</link> 
+        </para>
+         <para>
+            Az előző feladatban megírt C++ LZW binfát átírjuk, hogy a gyoker mutató legyen. Ehhez annyit kell tenni, hogy a Csomopont-nál *gyoker-re változtatjuk.
+            Aztán mikor fordítjuk, rájövünk, hogy tönkrevágtuk az egészet..Viccet félre téve a hibákat amiket kidob, debugoljuk gyorsan.
+            Ha ezt megtettük, akkor a program a fordítás során sok hibát fog visszadobni nekünk, ezeket kell gyorsan debuggolni a következőképpen:
+         </para>
+         <para>
+             A forrásban minden gyoker elöl kitörljük a <![CDATA[&]]>-t.
+             Azután az LZWBinFa függvényt így változtatjuk meg.
+             
+            <programlisting language="c++"><![CDATA[
+LZWBinFa ()
+    {
+        gyoker = new Csomopont ('/');
+        fa = gyoker;
+    }
+      ]]>      </programlisting>
+            A gyoker mutató, egy új lefoglalt tárhelyre mutata fa mutatóval.
+            
+            <programlisting language="c++"><![CDATA[
+~LZWBinFa ()
+    {
+        szabadit (gyoker->egyesGyermek ());
+        szabadit (gyoker->nullasGyermek ());
+        delete(gyoker);
+    }]]>
+            </programlisting>
+            A deestruktornak most ezeket a tárhelyeket kell felszabadítani.
+            A gyoker gyermekeire meghívjuk a szabadit függvényt, majd a delete függvénnyel felszabadítjuk a gyoker által foglalt területet.
+            
+            </para>
+        
+
+    </section>                     
+
+    <section>
+        <title>Mozgató szemantika</title>
+        <para>
+            Írj az előző programhoz mozgató konstruktort és értékadást, a mozgató konstruktor legyen a mozgató
+            értékadásra alapozva!
+        </para>
+        <para>
+            Megoldás videó: 
+        </para>
+        <para>
+            Megoldás forrása:  <link xlink:href='https://github.com/gilaattila95/Prog1/blob/master/6.Hello%20Welch!/6.6.%20Mozgato%20szemantika'>Hello Welch!/6.6. Mozgato szemanitka</link> 
+        </para>
+        <para>Tutorálva:Balázs Tóth</para>
+        <para>
+            Az előző feladatban megírt rész fogjuk tovább változtatni, hogy mozgató konstruktor legyen.
+            
+            
+            <programlisting language="c++"><![CDATA[
+     LZWBinFa ( LZWBinFa && regi ) {
+          std::cout << "LZWBinFa move ctor" << std::endl;
+
+          gyoker.ujEgyesGyermek ( regi.gyoker.egyesGyermek() );
+          gyoker.ujNullasGyermek ( regi.gyoker.nullasGyermek() );
+
+          regi.gyoker.ujEgyesGyermek ( nullptr );
+          regi.gyoker.ujNullasGyermek ( nullptr );
+            
+            //gyoker = regi.gyoker;
+            // *this = std::move(regi);
+     }
+     LZWBinFa& operator = (LZWBinFa && regi)
+     {
+         if (this == &regi)
+             return *this;
+         
+         gyoker.ujEgyesGyermek ( regi.gyoker.egyesGyermek() );
+         gyoker.ujNullasGyermek ( regi.gyoker.nullasGyermek() );
+
+         regi.gyoker.ujEgyesGyermek ( nullptr );
+         regi.gyoker.ujNullasGyermek ( nullptr );
+         
+         //std::swap(gyoker, regi.gyoker);
+          
+          
+          
+         return *this;
+     }]]>
+            </programlisting>
+            
+            A paraméterként megkapott fának a gyökér elemeit átadjuk az üres fának, majd a régi fát lenullázzuk.
+            
+            <programlisting language = "c++"><![CDATA[
+    LZWBinFa binFa2 = std::move(binFa);
+    
+    kiFile << binFa2;
+    kiFile << "depth = " << binFa2.getMelyseg () << std::endl;
+    kiFile << "mean = " << binFa2.getAtlag () << std::endl;
+    kiFile << "var = " << binFa2.getSzoras () << std::endl;]]>
+            </programlisting>
+            A move függvény mozgatja az elemeket a binFa2 be, 
+            majd pedig végül már csak az új fa kiíratása van hátra, a régi eltűnik.
+        </para>
+
+    </section>                     
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+</chapter>                

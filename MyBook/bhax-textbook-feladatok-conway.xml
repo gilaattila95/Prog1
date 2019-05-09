@@ -1,0 +1,120 @@
+<chapter xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" version="5.0" xml:lang="hu">
+    <info>
+        <title>Helló, Conway!</title>
+        <keywordset>
+            <keyword/>
+        </keywordset>
+    </info>
+    <section>
+        <title>Hangyaszimulációk</title>
+        <para>
+            Írj Qt C++-ban egy hangyaszimulációs programot, a forrásaidról utólag reverse engineering jelleggel
+            készíts UML osztálydiagramot is!
+        </para>
+        <para>
+            Megoldás videó: <link xlink:href="https://github.com/gilaattila95/Prog1/tree/master/7.Hello%20Conway!/7.1.%20Hangyaszimulaciok">7.Hello Conway!/7.1. Hangyaszimulaciok</link>
+        </para>
+        <para>
+            Megoldás forrása: <link xlink:href=""></link>               
+        </para>
+        <para>
+            Először telepítenünk kell a <command>sudo apt-get install qtbase5-dev</command> csomagot.
+        </para>
+        <para>
+            A hangyaszimuláció lényege, hogy a képernyő blokkokra van osztva, melyekben hangyák közlekednek, és a hangyák ahhoz a szomszédos hangyázhoz mennek, 
+            amelyik erősebb nyomot hagyott. A nyomok folyamatosan gyengülnek, de ha egy hangya rá lép akkor felerősödik.
+        </para>
+        <para>  
+            Fordításnál figyeljünk, hogy minden fájlunk egy mappában legyen.A fordítása a következő <command>qmake myrmecologist.pro</command>.
+            Futtatása pedig <command>./myrmecologist -w 250 -m 150 -n 400 -t 10 -p 5 -f 80 -d 0 -a 255 -i 3 -s 3  -c 22</command>
+        </para>
+        <para>
+            -w : Cellánként hány oszlop legyen.
+        </para>
+        <para>
+            -m : Cellák magassága.
+        </para>
+        <para>
+            -n : Hangyák darabsszáma.
+        </para>    
+        <para>
+            -t : Lépések között eltelt idő. (milisec)
+        </para>
+        <para>
+            -f : Hangyák nyomának erőssége.
+        </para>
+        <para>
+            -d : A cellák nyomerősségének alapértelmezett értéke.
+        </para>
+        <para>
+            -a, -i : Maximum, és Minimum nyomerősség.
+        </para>
+        <para>
+            -s : A hangyák szomszédos cellákban hagyott nyomerőssége.
+        </para>
+        <para>     
+            -c: Valamint megadhatjuk azt is, hogy hány hangya tartózkodhasson egyszerre egy cellában, de ez nem szükséges feltétel a futáshoz.
+        </para>
+       
+
+        <para>
+            Az Ant classban, a hangyáink pocícióit határozzuk meg, a dir változó az irányukat is megadja.
+            A typedef segítségével az Ant típusú elemekből álló vektorokra az Ants kulcsszóval hivatkozunk majd.
+        </para>
+        <para>
+            Az AntWin class kidolgozása az antwin.cpp és antwin.h fájlban van.A header fájlban deklarálunk a cpp fájlban kifejtünk.
+            A Qt hasznélatánál, includálnunk kell az alábbi könyvtárakat: QMainWindow az ablak készítéshez, QPainter az ablak megjelenéséhez, QString amegfelelő kódolással rendelkező stringke tárolására,
+            és a QCloseEvent a program bezárásához.
+        </para>
+        <para>
+            Az antthread.h fájl a számításokat végzi amiket az antthread.cpp féjlban tárolunk.
+            A Qthread class keezeli a programszálakat.
+            Az AntThread class-ban deklarált konstruktor a kapott értékekkel az AntWin class-szal a hangyákat mozgatjuk.
+            Elvégzi a megfelelő számításokat a nyomok erősségének megállapítására a cellák zsúfoltságának feltérképezésének a setítségével, 
+            azután megváltoztatja a cellák nyomerősségét, végül az AntWin osztály elvégzi a cellák kimeneti módosítását
+        </para>
+         
+    </section>        
+    <section>
+        <title>Java életjáték</title>
+        <para>
+            Írd meg Java-ban a John Horton Conway-féle életjátékot, 
+            valósítsa meg a sikló-kilövőt!
+        </para>
+        <para>
+            Megoldás videó: 
+        </para>
+        <para>
+            Megoldás forrása: <link xlink:href=""></link>               
+        </para>
+        <para> Passz </para>
+    </section>        
+    <section>
+        <title>Qt C++ életjáték</title>
+        <para>
+            Most Qt C++-ban!
+        </para>
+        <para>
+            Megoldás videó: 
+        </para>
+        <para>
+            Megoldás forrása: <link xlink:href=""></link>               
+        </para>
+        <para>Passz</para>        
+    </section>        
+    <section>
+        <title>BrainB Benchmark</title>
+        <para>
+        </para>
+        <para>
+            Megoldás videó: 
+        </para>
+        <para>
+            Megoldás forrása: <link xlink:href=""></link>               
+        </para>
+        <para>
+            Passz
+        </para>
+    </section>        
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+</chapter>                
