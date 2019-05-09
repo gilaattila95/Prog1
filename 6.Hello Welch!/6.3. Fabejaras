@@ -1,1 +1,43 @@
+//Postorder:
 
+void
+kiir (BINFA_PTR elem)
+{
+  if (elem != NULL)
+    {
+      ++melyseg;
+      if (melyseg > max_melyseg)
+	max_melyseg = melyseg;
+      kiir (elem->jobb_egy);
+      // ez a postorder bejáráshoz képest
+      // 1-el nagyobb mélység, ezért -1
+      kiir (elem->bal_nulla);
+      for (int i = 0; i < melyseg; ++i)
+	printf ("---");
+      printf ("%c(%d)\n", elem->ertek < 2 ? '0' + elem->ertek : elem->ertek,
+	      melyseg-1);
+      --melyseg;
+    }
+ }
+ 
+//Preorder
+
+void
+kiir (BINFA_PTR elem)
+{
+  if (elem != NULL)
+    {
+      ++melyseg;
+      if (melyseg > max_melyseg)
+	max_melyseg = melyseg;
+      for (int i = 0; i < melyseg; ++i)
+	printf ("---");
+      printf ("%c(%d)\n", elem->ertek < 2 ? '0' + elem->ertek : elem->ertek,
+	      melyseg-1);
+      kiir (elem->jobb_egy);
+      // ez a preorder bejáráshoz képest
+      // 1-el nagyobb mélység, ezért -1
+      kiir (elem->bal_nulla);
+      --melyseg;
+    }
+}
